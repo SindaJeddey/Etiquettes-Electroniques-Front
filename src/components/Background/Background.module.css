@@ -1,28 +1,30 @@
 .sideBar{
     position: absolute;
-    width: 670px;
     height: 100%;
+    width: 45%;
     left: 0px;
     top: 0px;
+    z-index: auto;
     background: #00A896;
 }
 
 .centerComponent{
     position: absolute;
-    width: 1280px;
-    height: 600px;
-    left: calc(50% - 1280px/2 + 11px);
-    top: calc(50% - 600px/2);
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    top: calc(50% - 80%/2);
+    left: 10%;
     background: #F1FAEE;
     box-shadow: 8px 8px 50px rgba(0, 0, 0, 0.5);
 }
 
 .sideCenterComponent{
     position: absolute;
-    width: 521px;
-    height: 600px;
-    left: calc(50% - 580px/2 - 340px);
-    top: calc(50% - 600px/2);
+    width: 43.75%;
+    height: 100%;
+    left: calc(50% - 42%/2 - 29%);
+    top: calc(50% - 100%/2);
     background: rgba(0, 168, 150, 0.95);
 }
 
@@ -31,4 +33,5 @@
     left: 20px;
     top: 20px;
     color: #FFFFFF;
+    z-index: 1;
 }

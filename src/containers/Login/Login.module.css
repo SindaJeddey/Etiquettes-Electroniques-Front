@@ -1,0 +1,50 @@
+.container{
+    position: absolute;
+    width: 35%;
+    height: 70%;
+    top: 15%;
+    bottom: 15%;
+    left: 50%;
+}
+
+.input{
+    border: 1px solid rgba(68, 66, 66, 0.75);
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 75%;
+    background: #F1FAEE;
+    color: rgba(68, 66, 66, 0.75);
+}
+
+.form{
+    position: relative;
+    left: 12.5%;
+}
+
+.button{
+    position: absolute;
+    background: #00A896;
+    color: #F1FAEE;
+    border: #00A896;
+    left:25%;
+    width: 25%;
+}
+
+.button:hover{
+    background: #008d7b;
+}
+
+.title{
+    font-size: 45px;
+    text-align: center;
+}
+
+.label{
+    font-size: 20px;
+}
+
+.fpw{
+    font-size: small;
+    padding-left: 51%;
+    color: rgba(0, 0, 0, 0.81);
+}

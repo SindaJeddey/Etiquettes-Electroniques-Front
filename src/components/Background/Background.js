@@ -1,12 +1,15 @@
 import React from "react";
 import classes from './Background.module.css';
+import cx from 'classnames';
 
 const Background = () => {
     return(
         <div>
-            <div className={classes.sideBar}></div>
-            <div className={classes.centerComponent}></div>
-            <div className={classes.sideCenterComponent}></div>
+            <div className={cx(classes.sideBar)}></div>
+            <div className={cx(classes.centerComponent)}>
+                <div className={classes.sideCenterComponent}></div>
+            </div>
+
             <div className={classes.logo}>LOGO</div>
         </div>
     );
