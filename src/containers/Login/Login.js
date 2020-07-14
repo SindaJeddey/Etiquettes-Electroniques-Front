@@ -17,7 +17,7 @@ class Login extends Component{
             password: this.state.password
         }
 
-        axios.post("http://localhost:8080/login", credentials)
+        axios.post("https://localhost:8443/login", credentials)
             .then(response => {
                 this.setState({loggedInToken: response.headers['authorization'].replace("Bearer ", "")})
                 console.log(this.state)
