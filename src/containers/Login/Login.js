@@ -2,27 +2,20 @@ import React, {Component} from "react";
 import classes from './Login.module.css';
 import cx from 'classnames';
 import axios from 'axios';
+import * as actionCreators from '../../store/actions/index';
+import {connect} from "react-redux";
 
 class Login extends Component{
-    state ={
-        username:'',
-        password:'',
-        loggedInToken: null
-    }
 
     onClickHandler = (event) => {
         event.preventDefault();
-        const credentials ={
-            username: this.state.username,
-            password: this.state.password
-        }
-
-        axios.post("https://localhost:8443/login", credentials)
-            .then(response => {
-                this.setState({loggedInToken: response.headers['authorization'].replace("Bearer ", "")})
-                console.log(this.state)
-            })
-            .catch(error => console.log(error));
+        // axios.post("https://localhost:8443/login", credentials)
+        //     .then(response => {
+        //         cren
+        //         this.props.onLogin(credentials);
+        //         console.log(this.props)
+        //     })
+        //     .catch(error => console.log(error));
     }
 
 
@@ -36,14 +29,14 @@ class Login extends Component{
                             <input type="text"
                                    className={cx("form-control", classes.input)}
                                    placeholder={"ex.sady99"}
-                                   onChange={(event) => this.setState({username: event.target.value})}/>
+                                   onChange={(event) => this.props.onChangeUsername(event.target.value)}/>
                         </div>
                         <div className={"form-group"}>
                             <label className={cx(classes.label,"col-form-label")}>Password:</label>
                             <input type="password"
                                    className={cx("form-control", classes.input)}
                                    placeholder={"Enter your password"}
-                                   onChange={(event) => this.setState({password: event.target.value})}/>
+                                   onChange={(event) => this.props.onChangePassword(event.target.value)}/>
                             <small className={cx(classes.fpw, "form-text")}>Forgot your password?</small>
                         </div>
                     <button className={cx("btn btn-primary mt-5",classes.button)}
@@ -55,4 +48,20 @@ class Login extends Component{
 
 }
 
-export default Login;
+const mapStateToProps = (state) => (
+    {
+        username: state.username,
+        password: state.password,
+        token: state.token
+    }
+)
+
+const mapDispatchToProps = (dispatch) => (
+    {
+        onLogin: (credentials) => dispatch(actionCreators.login(credentials)),
+        onChangeUsername: (username) => dispatch(actionCreators.updateUsername(username)),
+        onChangePassword: (password) => dispatch(actionCreators.updatePassword(password))
+    }
+)
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
