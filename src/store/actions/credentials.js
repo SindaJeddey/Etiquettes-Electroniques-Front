@@ -1,11 +1,18 @@
-import {LOGIN, UPDATE_PASSWORD, UPDATE_USERNAME} from "./actionTypes";
+import {LOGIN, LOGOUT, UPDATE_PASSWORD, UPDATE_USERNAME} from "./actionTypes";
 
-export const login = ({username,password,token}) => {
+export const login = (credentials) => {
     return{
         type: LOGIN,
-        username: username,
-        password: password,
-        token:token
+        username:  credentials.username,
+        password:  credentials.password,
+        token: credentials.token,
+        authority: credentials.authority
+    }
+}
+
+export const logout = () => {
+    return{
+        type: LOGOUT
     }
 }
 

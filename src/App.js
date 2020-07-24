@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
-import Background from "./components/Background/Background";
 import Login from "./containers/Login/Login";
+import {connect} from "react-redux";
+import Layout from "./components/Layout/Layout";
+import {Route, Switch} from "react-router";
+import Logout from "./containers/Logout/Logout";
+import Choices from "./components/Choices/Choices";
+class App extends Component{
 
-function App() {
-  return (
-    <div className="App">
-      <Background/>
-      <Login/>
-    </div>
-  );
+    render() {
+        return(
+            <div>
+                <Layout>
+                    {this.props.token!==null? <Logout/> : null}
+                    <Switch>
+                        <Route path={"/welcome"} component={() => <Choices role={this.props.authority}/>}/>
+                        <Route path="/" component={Login}/>
+                    </Switch>
+                </Layout>
+            </div>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => (
+    {
+        token: state.token,
+        authority: state.authority
+    }
+)
+
+
+export default connect(mapStateToProps)(App);

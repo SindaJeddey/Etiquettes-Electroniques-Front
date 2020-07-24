@@ -7,7 +7,8 @@ const Background = () => {
         <div>
             <div className={cx(classes.sideBar)}></div>
             <div className={cx(classes.centerComponent)}>
-                <div className={classes.sideCenterComponent}></div>
+                <div className={classes.sideCenterComponent}>
+                </div>
             </div>
 
             <div className={classes.logo}>LOGO</div>

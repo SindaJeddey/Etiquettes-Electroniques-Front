@@ -4,18 +4,39 @@ import cx from 'classnames';
 import axios from 'axios';
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
+import {withRouter} from "react-router";
+
+const https = require('https');
+
+const decoder = require('jwt-decode')
 
 class Login extends Component{
 
     onClickHandler = (event) => {
         event.preventDefault();
-        // axios.post("https://localhost:8443/login", credentials)
-        //     .then(response => {
-        //         cren
-        //         this.props.onLogin(credentials);
-        //         console.log(this.props)
-        //     })
-        //     .catch(error => console.log(error));
+        const credentials = {
+            username: this.props.username,
+            password: this.props.password
+        }
+        const agent = new https.Agent({
+            rejectUnauthorized: false
+        });
+        axios.post("https://localhost:8443/login", credentials,{httpsAgent: {
+            rejectUnauthorized: false
+            }})
+            .then(response => {
+                const token = response.headers['authorization'].replace("Bearer ","");
+                const auth = decoder(token).authorities[0].authority.replace("ROLE_","");
+                this.props.onLogin({
+                    username: this.props.username,
+                    password: this.props.password,
+                    token: token,
+                    authority: auth
+                });
+                console.log(this.props)
+                this.props.history.push('/welcome');
+            })
+            .catch(error => console.log(error));
     }
 
 
@@ -42,6 +63,7 @@ class Login extends Component{
                     <button className={cx("btn btn-primary mt-5",classes.button)}
                             onClick={event => this.onClickHandler(event)}>Login</button>
                 </form>
+
             </div>
         )
     }
@@ -64,4 +86,4 @@ const mapDispatchToProps = (dispatch) => (
     }
 )
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Login));
