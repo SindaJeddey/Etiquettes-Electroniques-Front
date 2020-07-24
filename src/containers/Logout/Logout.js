@@ -17,7 +17,7 @@ class Logout extends Component {
             <div className={classes.container}>
                 <button className={cx(classes.btnLink, "btn")}
                         onClick={this.onLogoutHandler}>
-                    <ExitToAppIcon/>Logout
+                    <ExitToAppIcon className={classes.icon}/>Logout
                 </button>
             </div>
         )

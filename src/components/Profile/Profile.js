@@ -7,7 +7,7 @@ const Profile = () => {
     return(
         <div className={classes.container}>
             <button className={cx(classes.btnLink, "btn")}>
-                <AccountCircleIcon/> Profile
+                <AccountCircleIcon className={classes.icon}/> Profile
             </button>
         </div>
     )
