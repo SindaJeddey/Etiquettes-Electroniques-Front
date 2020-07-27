@@ -2,6 +2,7 @@ import React from "react";
 import SearchIcon from '@material-ui/icons/Search';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import classes from './SideMenu.module.css';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const SideMenu = ({choice}) => {
     return(
@@ -18,6 +19,9 @@ const SideMenu = ({choice}) => {
                 <div className={classes.text}>
                     Add new {choice}
                 </div>
+            </div>
+            <div className={classes.back}>
+                <ArrowBackIosIcon fontSize={"small"}/>Back
             </div>
         </div>
     )
