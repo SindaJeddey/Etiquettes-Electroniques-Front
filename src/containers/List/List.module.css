@@ -1,0 +1,18 @@
+.container {
+    position: absolute;
+    width: 40%;
+    top: 20%;
+    left: 47.5%;
+    text-align: center;
+}
+
+.input{
+    position: relative;
+    border: 1px solid rgba(68, 66, 66, 0.75);
+    box-sizing: border-box;
+    border-radius: 5px;
+    width: 50%;
+    background: #F1FAEE;
+    color: rgba(68, 66, 66, 0.75);
+    left: 25%;
+}
