@@ -1,18 +1,32 @@
 .container {
-    position: absolute;
-    width: 40%;
+    position: relative;
     top: 20%;
-    left: 47.5%;
-    text-align: center;
+    left: 5%;
+    width: 90%;
 }
 
-.input{
+.table{
     position: relative;
-    border: 1px solid rgba(68, 66, 66, 0.75);
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 50%;
-    background: #F1FAEE;
-    color: rgba(68, 66, 66, 0.75);
-    left: 25%;
 }
+
+.deleteIcon {
+    display: inline;
+    margin-left: 20%;
+}
+
+.deleteIcon:hover{
+    cursor: pointer;
+    color: #d62828;
+}
+
+
+.editIcon{
+    display: inline;
+    margin-left: 20%;
+}
+
+.editIcon:hover{
+    cursor: pointer;
+    color: green;
+}
+

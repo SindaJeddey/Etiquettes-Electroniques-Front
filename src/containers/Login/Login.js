@@ -4,23 +4,23 @@ import cx from 'classnames';
 import axios from 'axios';
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
+import {Redirect, Route, withRouter} from "react-router";
+import Choices from "../../components/Choices/Choices";
 
-const https = require('https');
 
 const decoder = require('jwt-decode')
 
 class Login extends Component{
 
-    onClickHandler = (event) => {
-        event.preventDefault();
+    state = {
+        redirect : false
+    }
+
+    fetching = () => {
         const credentials = {
             username: this.props.username,
             password: this.props.password
         }
-        const agent = new https.Agent({
-            rejectUnauthorized: false
-        });
         axios.post("https://localhost:8443/login", credentials,{httpsAgent: {
             rejectUnauthorized: false
             }})
@@ -33,14 +33,23 @@ class Login extends Component{
                     token: token,
                     authority: auth
                 });
-                console.log(this.props)
-                this.props.history.push('/welcome');
+                this.setState({redirect: true});
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.props.history.replace('/')
+            });
+    }
+
+    onClickHandler = (event) => {
+        event.preventDefault();
+        this.fetching();
     }
 
 
     render() {
+        if (this.state.redirect === true)
+            this.props.history.push("/welcome")
         return(
             <div className={classes.container}>
                 <h2 className={cx("pt-5 mb-5",classes.title)}>Log In</h2>
@@ -63,7 +72,6 @@ class Login extends Component{
                     <button className={cx("btn btn-primary mt-5",classes.button)}
                             onClick={event => this.onClickHandler(event)}>Login</button>
                 </form>
-
             </div>
         )
     }
@@ -72,9 +80,10 @@ class Login extends Component{
 
 const mapStateToProps = (state) => (
     {
-        username: state.username,
-        password: state.password,
-        token: state.token
+        username: state.credentialsReducer.username,
+        password: state.credentialsReducer.password,
+        token: state.credentialsReducer.token,
+        authority: state.credentialsReducer.authority
     }
 )
 

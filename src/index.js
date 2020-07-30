@@ -5,11 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
-import { createStore } from "redux";
-import Reducer from './store/reducers/credentials';
+import {combineReducers, createStore} from "redux";
+import CredentialsReducer from './store/reducers/credentials';
+import ChoiceReducer from './store/reducers/choice';
 import {BrowserRouter} from "react-router-dom";
 
-const store = createStore(Reducer);
+
+const rootReducer = combineReducers({
+    credentialsReducer: CredentialsReducer,
+    choiceReducer: ChoiceReducer });
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>

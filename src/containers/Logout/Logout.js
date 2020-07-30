@@ -4,15 +4,16 @@ import classes from './Logout.module.css';
 import cx from 'classnames';
 import * as actionCreators from '../../store/actions/index'
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
+import {Redirect, withRouter} from "react-router";
 
 class Logout extends Component {
     onLogoutHandler = () => {
         this.props.onLogout();
-        this.props.history.replace("/");
     }
 
     render() {
+        if(this.props.token === null)
+            return <Redirect to={"/"}/>
         return (
             <div className={classes.container}>
                 <button className={cx(classes.btnLink, "btn")}
@@ -26,8 +27,8 @@ class Logout extends Component {
 
 const mapStateToProps = (state) => (
     {
-        token: state.token,
-        authority: state.authority
+        token: state.credentialsReducer.token,
+        authority: state.credentialsReducer.authority
     }
 )
 

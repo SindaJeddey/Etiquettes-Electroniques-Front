@@ -1,0 +1,15 @@
+.container {
+    position: absolute;
+    height: 100%;
+    width: 56.25%;
+    left: 43.75%;
+    top: 0;
+}
+
+
+.searchContainer {
+    position: absolute;
+    left: 35%;
+    top: 5%;
+    color: #343a40;
+}

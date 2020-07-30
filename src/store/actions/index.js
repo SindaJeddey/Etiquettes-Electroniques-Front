@@ -4,3 +4,7 @@ export {
     updatePassword,
     updateUsername
 } from "./credentials"
+
+export {
+    setChoice
+} from './choice'

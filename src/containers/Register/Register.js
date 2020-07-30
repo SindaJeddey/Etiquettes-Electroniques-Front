@@ -165,6 +165,6 @@ class Register extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    token: state.token
+    token: state.credentialsReducer.token
 })
 export default connect(mapStateToProps)(Register);
