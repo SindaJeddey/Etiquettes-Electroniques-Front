@@ -4,7 +4,7 @@ import classes from './Logout.module.css';
 import cx from 'classnames';
 import * as actionCreators from '../../store/actions/index'
 import {connect} from "react-redux";
-import {Redirect, withRouter} from "react-router";
+import { withRouter} from "react-router";
 
 class Logout extends Component {
     onLogoutHandler = () => {
@@ -13,7 +13,7 @@ class Logout extends Component {
 
     render() {
         if(this.props.token === null)
-            return <Redirect to={"/"}/>
+            this.props.history.url('/')
         return (
             <div className={classes.container}>
                 <button className={cx(classes.btnLink, "btn")}
