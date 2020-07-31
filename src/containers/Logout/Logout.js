@@ -7,13 +7,13 @@ import {connect} from "react-redux";
 import { withRouter} from "react-router";
 
 class Logout extends Component {
+
     onLogoutHandler = () => {
         this.props.onLogout();
+        this.props.history.replace('/')
     }
 
     render() {
-        if(this.props.token === null)
-            this.props.history.url('/')
         return (
             <div className={classes.container}>
                 <button className={cx(classes.btnLink, "btn")}

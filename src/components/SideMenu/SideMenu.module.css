@@ -3,6 +3,7 @@
     color: #F1FAEE;
     width: 40%;
     height: 100%;
+
 }
 
 .text{
@@ -34,9 +35,9 @@
 
 .title{
     position: relative;
-    left: 30%;
+    left: 25%;
     text-align: center;
-    width: 50%;
+    width: 60%;
     font-size: 33px;
     color: #F1FAEE;
 }

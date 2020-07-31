@@ -8,9 +8,8 @@ class Choice extends Component{
 
     onClickHandler =() =>{
         this.props.onSetChoice(this.props.title);
-        this.props.history.push('/'+this.props.title.toLowerCase());
-        console.log(this.props)
-;    }
+        this.props.history.push('/'+this.props.authority.toLowerCase()+'/'+this.props.title.toLowerCase());
+    }
 
     render() {
         return(
@@ -26,7 +25,8 @@ class Choice extends Component{
 
 const mapStateToProps = (state) => (
     {
-        choice: state.choiceReducer.choice
+        choice: state.choiceReducer.choice,
+        authority: state.credentialsReducer.authority
     }
 )
 

@@ -13,7 +13,6 @@ import Paper from "@material-ui/core/Paper";
 class List extends Component {
 
     render() {
-        console.log(this.props)
         const products =  [
             {
                 id:1,

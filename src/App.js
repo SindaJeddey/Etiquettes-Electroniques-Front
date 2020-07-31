@@ -7,6 +7,7 @@ import Logout from "./containers/Logout/Logout";
 import Profile from "./components/Profile/Profile";
 import Login from "./containers/Login/Login";
 import Choices from "./components/Choices/Choices";
+import Panel from "./containers/Panel/Panel";
 class App extends Component{
 
     render() {
@@ -16,6 +17,7 @@ class App extends Component{
                     {this.props.token!==null? <Logout/> : null}
                     {this.props.token!==null? <Profile/> : null}
                     <Route path={"/welcome"} exact component={Choices}/>
+                    <Route path={"/:choice/:option"} component={Panel}/>
                     <Route path="/" exact component={Login}/>
                 </Layout>
             </div>
@@ -25,7 +27,8 @@ class App extends Component{
 
 const mapStateToProps = (state) => (
     {
-        token: state.credentialsReducer.token
+        token: state.credentialsReducer.token,
+        choice: state.choiceReducer.choice
     }
 )
 

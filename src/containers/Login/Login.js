@@ -12,9 +12,6 @@ const decoder = require('jwt-decode')
 
 class Login extends Component{
 
-    state = {
-        redirect : false
-    }
 
     fetching = () => {
         const credentials = {
@@ -48,8 +45,8 @@ class Login extends Component{
 
 
     render() {
-        if (this.state.redirect === true)
-            this.props.history.push("/welcome")
+        if (this.props.token !== null)
+            return (<Redirect to={"/welcome"} />)
         return(
             <div className={classes.container}>
                 <h2 className={cx("pt-5 mb-5",classes.title)}>Log In</h2>
