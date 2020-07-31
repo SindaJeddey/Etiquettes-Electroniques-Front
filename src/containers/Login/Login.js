@@ -6,12 +6,16 @@ import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
 import {Redirect, Route, withRouter} from "react-router";
 import Choices from "../../components/Choices/Choices";
+import Modal from "../../components/Modal/Modal";
 
 
 const decoder = require('jwt-decode')
 
 class Login extends Component{
 
+    state = {
+        forgotPassword: false
+    }
 
     fetching = () => {
         const credentials = {
@@ -43,6 +47,13 @@ class Login extends Component{
         this.fetching();
     }
 
+    onModalClose = () => {
+        this.setState({forgotPassword: false})
+    }
+
+    onModalOpen = () => {
+        this.setState({forgotPassword: true})
+    }
 
     render() {
         if (this.props.token !== null)
@@ -64,7 +75,15 @@ class Login extends Component{
                                    className={cx("form-control", classes.input)}
                                    placeholder={"Enter your password"}
                                    onChange={(event) => this.props.onChangePassword(event.target.value)}/>
-                            <small className={cx(classes.fpw, "form-text")}>Forgot your password?</small>
+                            <small className={cx(classes.fpw, "form-text")}
+                                   onClick={this.onModalOpen}>
+                                Forgot your password?
+                            </small>
+                        <Modal open={this.state.forgotPassword}
+                               title={"Password Reset"}
+                               email={true}
+                               onClose={this.onModalClose}
+                               subscribe={true}/>
                         </div>
                     <button className={cx("btn btn-primary mt-5",classes.button)}
                             onClick={event => this.onClickHandler(event)}>Login</button>

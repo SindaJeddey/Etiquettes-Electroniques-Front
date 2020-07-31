@@ -9,14 +9,14 @@
 .text{
     color: rgba(241, 250, 238,0.6);
     display: inline;
-    font-size: 30px;
+    font-size: 24px;
     text-align: center;
 }
 
 .option {
     position: relative;
     border-bottom: 1px solid rgba(241, 250, 238,0.6);
-    width: 85%;
+    width: 80%;
     margin-bottom: 10%;
     top: 15%;
     left: 7%;
