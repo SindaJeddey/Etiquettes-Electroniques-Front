@@ -8,3 +8,8 @@ export {
 export {
     setChoice
 } from './choice'
+
+export {
+    setEmail,
+    setToken
+} from './password'

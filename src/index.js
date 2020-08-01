@@ -8,12 +8,14 @@ import {Provider} from "react-redux";
 import {combineReducers, createStore} from "redux";
 import CredentialsReducer from './store/reducers/credentials';
 import ChoiceReducer from './store/reducers/choice';
+import PasswordReducer from './store/reducers/password';
 import {BrowserRouter} from "react-router-dom";
 
 
 const rootReducer = combineReducers({
     credentialsReducer: CredentialsReducer,
-    choiceReducer: ChoiceReducer });
+    choiceReducer: ChoiceReducer,
+    passwordReducer: PasswordReducer});
 const store = createStore(rootReducer);
 
 ReactDOM.render(

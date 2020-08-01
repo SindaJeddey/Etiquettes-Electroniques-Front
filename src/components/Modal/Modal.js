@@ -7,17 +7,23 @@ import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import classes from './Modal.modules.css';
+import axios from 'axios';
+import * as actionCreators from '../../store/actions/index';
+import {connect} from "react-redux";
 
 class Modal extends Component {
     state = {
-        emailAddress: null,
-        token: null,
         resetEmailSent: false
     }
 
     onEmailSend = () => {
-        console.log(this.state.emailAddress)
-        this.setState({resetEmailSent: true})
+        axios.post("https://localhost:8443/api/password/token", {email: this.props.emailAddress})
+            .then(response => {
+                this.props.onSetToken(response.data.token);
+                this.setState({resetEmailSent: true});
+                console.log(this.props)
+            })
+            .catch(error => console.log(error))
     }
 
     render() {
@@ -39,7 +45,7 @@ class Modal extends Component {
                             label="Email Address"
                             type="email"
                             fullWidth
-                            onChange={event => this.setState({emailAddress: event.target.value})}
+                            onChange={event => this.props.onSetEmail(event.target.value)}
                         /> : null : null }
                     </DialogContent>
                     <DialogActions>
@@ -57,4 +63,17 @@ class Modal extends Component {
     }
 }
 
-export default Modal
+const mapStateToProps = (state) => (
+    {
+        emailAddress: state.passwordReducer.emailAddress,
+        token: state.passwordReducer.token
+    }
+)
+
+const mapDispatchToProps = (dispatch) => (
+    {
+        onSetEmail: (email) => dispatch(actionCreators.setEmail(email)),
+        onSetToken: (token) => dispatch(actionCreators.setToken(token))
+    }
+)
+export default connect(mapStateToProps,mapDispatchToProps)(Modal);
