@@ -8,26 +8,26 @@
 }
 
 .input{
-    border: 1px solid rgba(68, 66, 66, 0.75);
-    box-sizing: border-box;
-    border-radius: 5px;
-    width: 75%;
-    background: #F1FAEE;
-    color: rgba(68, 66, 66, 0.75);
+    margin: 7% auto;
+    width: 70%;
+
 }
 
 .form{
     position: relative;
-    left: 12.5%;
+    width: 100%;
+
+}
+
+.buttonContainer{
+    width: auto;
+    margin-top: 15%;
 }
 
 .button{
-    position: absolute;
-    background: #00A896;
-    color: #F1FAEE;
-    border: #00A896;
-    left:25%;
-    width: 25%;
+    position: relative;
+    left: 41%;
+    margin: 0 auto;
 }
 
 .button:hover{
@@ -39,12 +39,17 @@
     text-align: center;
 }
 
-.label{
-    font-size: 20px;
-}
 
 .fpw{
+    position: absolute;
+    right: 0;
+    margin: -5% 15%;
     font-size: small;
-    padding-left: 51%;
-    color: rgba(0, 0, 0, 0.81);
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.fpw:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.9);
 }

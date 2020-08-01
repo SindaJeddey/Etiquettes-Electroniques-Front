@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import {Redirect, Route, withRouter} from "react-router";
 import Choices from "../../components/Choices/Choices";
 import Modal from "../../components/Modal/Modal";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 
 const decoder = require('jwt-decode')
@@ -62,31 +64,34 @@ class Login extends Component{
             <div className={classes.container}>
                 <h2 className={cx("pt-5 mb-5",classes.title)}>Log In</h2>
                 <form className={classes.form}>
-                        <div className={"form-group"}>
-                            <label className={cx(classes.label,"col-form-label")}>Username:</label>
-                            <input type="text"
-                                   className={cx("form-control", classes.input)}
-                                   placeholder={"ex.sady99"}
+                    <div className={classes.input}>
+                        <TextField label="Username"
+                                   fullWidth={true}
+                                   variant="outlined"
                                    onChange={(event) => this.props.onChangeUsername(event.target.value)}/>
-                        </div>
-                        <div className={"form-group"}>
-                            <label className={cx(classes.label,"col-form-label")}>Password:</label>
-                            <input type="password"
-                                   className={cx("form-control", classes.input)}
-                                   placeholder={"Enter your password"}
+                    </div>
+                    <div className={classes.input}>
+                        <TextField label="Password"
+                                   fullWidth={true}
+                                   variant="outlined"
+                                   type={"password"}
                                    onChange={(event) => this.props.onChangePassword(event.target.value)}/>
-                            <small className={cx(classes.fpw, "form-text")}
-                                   onClick={this.onModalOpen}>
-                                Forgot your password?
-                            </small>
-                        <Modal open={this.state.forgotPassword}
-                               title={"Password Reset"}
-                               email={true}
-                               onClose={this.onModalClose}
-                               subscribe={true}/>
-                        </div>
-                    <button className={cx("btn btn-primary mt-5",classes.button)}
-                            onClick={event => this.onClickHandler(event)}>Login</button>
+                    </div>
+                    <small className={classes.fpw}
+                           onClick={this.onModalOpen}>
+                        Forgot your password?
+                    </small>
+                    <Modal open={this.state.forgotPassword}
+                           title={"Password Reset"}
+                           email={true}
+                           onClose={this.onModalClose}
+                           subscribe={true}/>
+                    <div className={classes.buttonContainer}>
+                       <Button size={"large"} className={classes.button}
+                               color={"primary"}
+                               variant={"contained"}
+                               onClick={event => this.onClickHandler(event)}>Login</Button>
+                   </div>
                 </form>
             </div>
         )
