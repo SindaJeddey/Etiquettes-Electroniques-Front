@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,34 +8,53 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import classes from './Modal.modules.css';
 
-const Modal = (props) => {
-    return(
-        <div className={classes.container}>
-            <Dialog open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title" fullWidth={true}>
-                <DialogTitle>{props.title}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>{props.text}</DialogContentText>
-                    {props.email === true ? <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                    /> : null }
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={props.onClose} color="primary">
-                        Cancel
-                    </Button>
-                    {props.subscribe === true ? <Button onClick={props.subscribe} color="primary">
-                        Subscribe
-                    </Button> : null }
+class Modal extends Component {
+    state = {
+        emailAddress: null,
+        token: null,
+        resetEmailSent: false
+    }
 
-                </DialogActions>
-            </Dialog>
-        </div>
-    )
+    onEmailSend = () => {
+        console.log(this.state.emailAddress)
+        this.setState({resetEmailSent: true})
+    }
+
+    render() {
+        return(
+            <div className={classes.container}>
+                <Dialog open={this.props.open} onClose={this.props.onClose} aria-labelledby="form-dialog-title" fullWidth={true}>
+                    <DialogTitle>{this.props.title}</DialogTitle>
+                    <DialogContent>
+                        {this.props.text ?
+                            <DialogContentText>{this.props.text}</DialogContentText> :
+                            this.state.resetEmailSent ?
+                            <DialogContentText>{this.props.successMessage}</DialogContentText> :
+                                null}
+                        {this.props.email === true ?
+                            this.state.resetEmailSent === false ? <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Email Address"
+                            type="email"
+                            fullWidth
+                            onChange={event => this.setState({emailAddress: event.target.value})}
+                        /> : null : null }
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.onClose} color="primary">
+                            Dismiss
+                        </Button>
+                        {this.props.subscribe === true ?
+                            this.state.resetEmailSent === false ? <Button onClick={this.onEmailSend} color="primary">
+                            Subscribe
+                        </Button> : null : null}
+                    </DialogActions>
+                </Dialog>
+            </div>
+        )
+    }
 }
 
 export default Modal

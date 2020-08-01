@@ -16,10 +16,12 @@ const decoder = require('jwt-decode')
 class Login extends Component{
 
     state = {
-        forgotPassword: false
+        forgotPassword: false,
+        email: null
     }
 
-    fetching = () => {
+    onClickHandler = (event) => {
+        event.preventDefault();
         const credentials = {
             username: this.props.username,
             password: this.props.password
@@ -44,17 +46,16 @@ class Login extends Component{
             });
     }
 
-    onClickHandler = (event) => {
-        event.preventDefault();
-        this.fetching();
-    }
-
     onModalClose = () => {
         this.setState({forgotPassword: false})
     }
 
     onModalOpen = () => {
         this.setState({forgotPassword: true})
+    }
+
+    onEmailChange = (email) => {
+        this.setState({email: email})
     }
 
     render() {
@@ -84,6 +85,7 @@ class Login extends Component{
                     <Modal open={this.state.forgotPassword}
                            title={"Password Reset"}
                            email={true}
+                           successMessage={"An email with password reset link has been sent to the given email address."}
                            onClose={this.onModalClose}
                            subscribe={true}/>
                     <div className={classes.buttonContainer}>
