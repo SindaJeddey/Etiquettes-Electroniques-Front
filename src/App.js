@@ -8,15 +8,18 @@ import Profile from "./components/Profile/Profile";
 import Login from "./containers/Login/Login";
 import Choices from "./components/Choices/Choices";
 import Panel from "./containers/Panel/Panel";
+import PasswordReset from "./containers/PasswordReset/PasswordReset";
 class App extends Component{
 
     render() {
+        console.log(this.props)
         return(
             <div>
                 <Layout>
                     {this.props.token!==null? <Logout/> : null}
                     {this.props.token!==null? <Profile/> : null}
                     <Route path={"/welcome"} exact component={Choices}/>
+                    <Route path={"/password_reset"} exact component={PasswordReset}/>
                     <Route path={"/:choice/:option"} component={Panel}/>
                     <Route path="/" exact component={Login}/>
                 </Layout>
