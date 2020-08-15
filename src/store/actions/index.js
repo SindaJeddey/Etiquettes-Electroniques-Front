@@ -6,10 +6,12 @@ export {
 } from "./credentials"
 
 export {
-    setChoice
+    setChoice,
+    setElement,
+    setItems
 } from './choice'
 
 export {
     setEmail,
     setToken
-} from './password'
+} from './passwordResetter'

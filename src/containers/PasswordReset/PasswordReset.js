@@ -65,10 +65,10 @@ class PasswordReset extends Component {
                         <TextField label="New Password"
                                    variant="outlined"
                                    fullWidth={true}
-                                   onChange={(event => this.setState({password: event.target.value}))}/>
+                                   onChange={(event => this.setState({password: event.target.value}))} type={"password"}/>
                     </div>
                     <div className={classes.input}>
-                        <TextField label="Confirm New Password" variant="outlined" fullWidth={true}/>
+                        <TextField label="Confirm New Password" variant="outlined" fullWidth={true} type={"password"}/>
                     </div>
                     <div className={classes.buttonContainer}>
                         <Button size={"large"} className={classes.button}

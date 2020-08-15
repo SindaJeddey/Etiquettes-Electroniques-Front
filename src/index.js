@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 import {combineReducers, createStore} from "redux";
 import CredentialsReducer from './store/reducers/credentials';
 import ChoiceReducer from './store/reducers/choice';
-import PasswordReducer from './store/reducers/password';
+import PasswordReducer from './store/reducers/passwordResetter';
 import {BrowserRouter} from "react-router-dom";
 
 
