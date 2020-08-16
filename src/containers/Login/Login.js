@@ -58,6 +58,16 @@ class Login extends Component{
         this.setState({email: email})
     }
 
+    onEmailSend = () => {
+        axios.post("https://localhost:8443/api/password/token", {email: this.props.emailAddress})
+            .then(response => {
+                this.props.onSetToken(response.data.token);
+                this.setState({resetEmailSent: true});
+                console.log(this.props)
+            })
+            .catch(error => console.log(error))
+    }
+
     render() {
         if (this.props.token !== null)
             return (<Redirect to={"/welcome"} />)
@@ -87,7 +97,8 @@ class Login extends Component{
                            email={true}
                            successMessage={"An email with password reset link has been sent to the given email address."}
                            onClose={this.onModalClose}
-                           subscribe={true}/>
+                           subscribe={true}
+                           onEmailSend={this.onEmailSend}/>
                     <div className={classes.buttonContainer}>
                        <Button size={"large"} className={classes.button}
                                color={"primary"}

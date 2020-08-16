@@ -16,15 +16,6 @@ class Modal extends Component {
         resetEmailSent: false
     }
 
-    onEmailSend = () => {
-        axios.post("https://localhost:8443/api/password/token", {email: this.props.emailAddress})
-            .then(response => {
-                this.props.onSetToken(response.data.token);
-                this.setState({resetEmailSent: true});
-                console.log(this.props)
-            })
-            .catch(error => console.log(error))
-    }
 
     render() {
         return(
@@ -53,9 +44,13 @@ class Modal extends Component {
                             Dismiss
                         </Button>
                         {this.props.subscribe === true ?
-                            this.state.resetEmailSent === false ? <Button onClick={this.onEmailSend} color="primary">
+                            this.props.email === true?
+                            this.state.resetEmailSent === false ? <Button onClick={this.props.onEmailSend} color="primary">
                             Subscribe
-                        </Button> : null : null}
+                        </Button> : null : <Button onClick={this.props.confirm} color="primary">
+                                    Confirm
+                                </Button> : null
+                        }
                     </DialogActions>
                 </Dialog>
             </div>

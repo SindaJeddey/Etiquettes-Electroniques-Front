@@ -15,6 +15,7 @@ import axios from 'axios';
 import * as actionCreators from '../../store/actions/index'
 import {connect} from "react-redux";
 import ListElement from "./ListElement/ListElement";
+import Modal from "../../components/Modal/Modal";
 
 
 const API_URL = "https://localhost:8443/api/";
@@ -24,14 +25,15 @@ class List extends Component {
     state = {
         page: 0,
         rowsPerPage: 8,
-        list : null
+        deleteModal: false,
+        id: null
     }
 
     componentDidMount() {
         console.log(this.props.choice)
         axios.get(API_URL+this.props.choice.toLowerCase(), {
             headers:{
-                'Authorization':'Bearer '+this.props.token
+                'Authorization':this.props.token
             }
         })
             .then(response => {
@@ -40,6 +42,28 @@ class List extends Component {
             })
             .catch(error => console.log(error))
     }
+
+    onModalClose = () => {
+        this.setState({deleteModal: false})
+    }
+
+    deleteHandler = (id) => {
+        this.setState({deleteModal: true, id:id})
+    }
+
+    onConfirm = () => {
+        axios.delete(API_URL+this.props.choice.toLowerCase()+"/"+this.state.id,{
+            headers:{
+                'Authorization':this.props.token
+            }
+        })
+            .then(response => {
+                this.props.onSetItems(this.props.items.filter(data => data.id !== this.state.id))
+                this.setState({deleteModal: false})
+            })
+            .catch(error => console.log(error))
+    }
+
 
     render() {
         const handleChangePage = (event, newPage) => {
@@ -66,7 +90,7 @@ class List extends Component {
                                     if (this.props.search === null) {
                                         return data;
                                     }
-                                    else if(this.props.choice === "Operators" || this.props.choice === "Super-Operators"){
+                                    else if(this.props.choice.toLowerCase() === "operators" || this.props.choice.toLowerCase() === "super-operators"){
                                         if(data.id === parseInt(this.props.search) ||
                                             data.username.toLowerCase().includes(this.props.search.toLowerCase())){
                                             return data
@@ -80,9 +104,11 @@ class List extends Component {
                             })
                                 .map((row) => (
                                 <ListElement id={row.id}
-                                             name={this.props.choice === "Operators" || this.props.choice === "Super-Operators"
+                                             name={this.props.choice.toLowerCase() === "operators" ||
+                                             this.props.choice.toLowerCase() === "super-operators"
                                                  ? row.username
-                                                 : row.name}/>
+                                                 : row.name}
+                                             onDeleteHandler={this.deleteHandler}/>
                             ))}
                         </TableBody>
                         <TableFooter>
@@ -99,6 +125,13 @@ class List extends Component {
                         </TableFooter>
                     </Table> : null}
                 </TableContainer>
+                <Modal email={false}
+                       subscribe={true}
+                       open={this.state.deleteModal}
+                       title={"Delete "+this.props.choice.replace("s","")+"?"}
+                       text={"Are you sure you want to delete "+this.props.choice.replace("s","").toLowerCase()+"?"}
+                       onClose={this.onModalClose}
+                       confirm={this.onConfirm}/>
             </div>
         )
     }
@@ -107,7 +140,7 @@ class List extends Component {
 const mapStateToProps = (state) => ({
     choice: state.choiceReducer.choice,
     items: state.choiceReducer.items,
-    token: state.credentialsReducer.token
+    token: 'Bearer '+state.credentialsReducer.token
 });
 
 

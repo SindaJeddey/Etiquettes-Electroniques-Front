@@ -31,7 +31,6 @@ class Search extends Component {
                 </div>
                 <List search={this.state.search}/>
             </div>
-
         )
     }
 }
