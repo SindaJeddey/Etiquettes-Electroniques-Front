@@ -97,6 +97,7 @@ class Login extends Component{
                            email={true}
                            successMessage={"An email with password reset link has been sent to the given email address."}
                            onClose={this.onModalClose}
+                           onSetEmail={this.onEmailChange}
                            subscribe={true}
                            onEmailSend={this.onEmailSend}/>
                     <div className={classes.buttonContainer}>

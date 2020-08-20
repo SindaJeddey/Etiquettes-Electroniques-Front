@@ -1,0 +1,49 @@
+.container {
+    height: 100%;
+    position: absolute;
+    width: 55%;
+    top: 0%;
+    bottom: 15%;
+    left: 44.25%;
+}
+
+.title{
+    position: relative;
+    top: 5%;
+    font-size: 35px;
+    text-align: center;
+}
+
+.input{
+    margin: 4% auto;
+    width: 70%;
+}
+
+.imageInput{
+    height: 5%;
+    margin: 4% auto;
+    width: 70%;
+}
+
+.button{
+    position: relative;
+    left: 43.25%;
+}
+
+.closeIcon{
+    position: absolute;
+    right: 0.7%;
+    top: 2%;
+    color: rgba(52,58,64,0.5);
+}
+
+.closeIcon:hover{
+    cursor: pointer;
+    color: rgba(52,58,64,1);
+}
+
+.form {
+    position: relative;
+    top: 15%;
+    width: 100%;
+}

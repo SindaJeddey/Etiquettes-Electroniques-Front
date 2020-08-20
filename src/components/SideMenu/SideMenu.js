@@ -25,7 +25,7 @@ class SideMenu extends Component {
                         Search for {choice}
                     </div>
                 </div>
-                <div className={classes.option}>
+                <div className={classes.option} onClick={this.props.addClick}>
                     <PersonAddIcon className={classes.icon} fontSize={"large"}/>
                     <div className={classes.text}>
                         Add new {choice}

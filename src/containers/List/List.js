@@ -14,7 +14,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import axios from 'axios';
 import * as actionCreators from '../../store/actions/index'
 import {connect} from "react-redux";
-import ListElement from "./ListElement/ListElement";
+import ListElement from "../../components/ListElement/ListElement";
 import Modal from "../../components/Modal/Modal";
 
 
