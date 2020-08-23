@@ -9,7 +9,7 @@ import {Redirect, withRouter} from "react-router";
 class SideMenu extends Component {
 
     goBack = () => {
-        this.props.history.goBack()
+        this.props.goBack();
     }
 
     render() {
@@ -45,4 +45,4 @@ const mapStateToProps = (state) => (
     }
 )
 
-export default withRouter(connect(mapStateToProps)(SideMenu));
+export default connect(mapStateToProps)(SideMenu);

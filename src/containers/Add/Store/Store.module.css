@@ -1,10 +1,10 @@
 .container {
     height: 100%;
     position: absolute;
-    width: 55%;
+    width: 56.25%;
     top: 0%;
     bottom: 15%;
-    left: 44.25%;
+    left: 43.75%;
 }
 
 .title{
@@ -14,15 +14,27 @@
     text-align: center;
 }
 
+.chips{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chip {
+    margin: 1%
+}
+
 .input{
     margin: 4% auto;
     width: 70%;
 }
 
-.imageInput{
-    height: 5%;
-    margin: 4% auto;
+.select_input{
     width: 70%;
+    margin: 4% auto;
+}
+
+.select{
+    width: 100%;
 }
 
 .button{
@@ -44,6 +56,6 @@
 
 .form {
     position: relative;
-    top: 15%;
+    top: 10%;
     width: 100%;
 }

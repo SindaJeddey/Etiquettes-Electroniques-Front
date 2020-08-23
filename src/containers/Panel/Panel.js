@@ -3,57 +3,70 @@ import SideMenu from "../../components/SideMenu/SideMenu";
 import {connect} from "react-redux";
 import classes from './Panel.module.css';
 import Search from "../Search/Search";
-import {withRouter} from "react-router";
-import AddUser from "../Add/User/AddUser";
-import AddCategory from "../Add/Category/AddCategory";
-import AddProduct from "../Add/Product/AddProduct";
-import AddStore from "../Add/Store/AddStore";
+import {Route, withRouter} from "react-router";
+import User from "../Add/User/User";
+import Category from "../Add/Category/Category";
+import Product from "../Add/Product/Product";
+import Store from "../Add/Store/Store";
+import Update from "../Update/Update";
 
 class Panel extends Component {
 
-    state = {
-        search: false,
-        adding: false
-    }
-
     onSearchClick = () => {
-        this.setState({search: true, adding:false})
+        this.props.history.push('/'+this.props.choice.toLowerCase()+"/search")
     }
 
     onClose = () => {
-        this.setState({search: false,adding: false})
+        this.props.history.push('/'+this.props.authority.toLowerCase()+'/'+this.props.choice.toLowerCase())
     }
 
     onAddClick = () => {
-        this.setState({adding: true, search: false})
+        this.props.history.push('/'+this.props.choice.toLowerCase()+"/add")
+    }
+
+    goBack = () => {
+        this.props.history.push('/welcome')
     }
 
     render() {
         if(this.props.token === null) {
             this.props.history.replace('/')
         }
+
         let add = null;
         switch (this.props.choice){
             case "Categories":
-                add = <AddCategory onClose={this.onClose} onSubmit={this.onSearchClick}/>
+                add = <Route exact path={"/:choice/add"} render={() => <Category
+                    onClose={this.onClose}
+                    onSubmit={this.onSearchClick}
+                    operation={"Add"}/>} />
                 break;
             case "Stores":
-                add = <AddStore onClose={this.onClose} onSubmit={this.onSearchClick}/>
+                add = <Route exact path={"/:choice/add"} render={() => <Store
+                    onClose={this.onClose}
+                    onSubmit={this.onSearchClick}
+                    operation={"Add"}/>} />
                 break;
             case "Products":
-                add = <AddProduct onClose={this.onClose} onSubmit={this.onSearchClick}/>
+                add = <Route exact path={"/:choice/add"} render={() => <Product
+                    onClose={this.onClose}
+                    onSubmit={this.onSearchClick}
+                    operation={"Add"}/>} />
                 break;
             default:
-                add = <AddUser onClose={this.onClose} onSubmit={this.onSearchClick}/>
+                add = <Route exact path={"/:choice/add"} render={() => <User
+                    onClose={this.onClose}
+                    onSubmit={this.onSearchClick}
+                    operation={"Add"}/>} />
                 break;
         }
         return(
             <div className={classes.container}>
-                    <SideMenu searchClick={this.onSearchClick} addClick={this.onAddClick}/>
-                {this.state.search ? <Search choice={this.props.choice.replace("s", "")}
-                                             onClose={this.onClose}/>
-                                             : this.state.adding ? add : null }
-
+                    <SideMenu searchClick={this.onSearchClick} addClick={this.onAddClick} goBack={this.goBack}/>
+                    <Route path={"/:choice/search"} exact render={() => <Search choice={this.props.choice.replace("s", "")}
+                                                                          onClose={this.onClose} update={this.onClose}/>}/>
+                {add}
+                    <Route path={"/:choice/update"} exact render={() => <Update onClose={this.onClose}/>}/>
             </div>
         )
     }
@@ -61,6 +74,7 @@ class Panel extends Component {
 
 const mapStateToProps = (state) => (
     {
+        authority: state.credentialsReducer.authority,
         choice: state.choiceReducer.choice,
         token: state.credentialsReducer.token
     }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import classes from './AddProduct.module.css';
+import classes from './Product.module.css';
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -13,8 +13,8 @@ import {connect} from "react-redux";
 import CloseIcon from "@material-ui/icons/Close";
 
 const CATEGORIES = "https://localhost:8443/api/categories";
-const API_URL = "https://localhost:8443/api/products/new"
-class AddProduct extends Component{
+const API_URL = "https://localhost:8443/api/products/"
+class Product extends Component{
 
     state = {
             categories: [],
@@ -34,15 +34,40 @@ class AddProduct extends Component{
         axios.get(CATEGORIES,{headers:{'Authorization':this.props.token}})
             .then(response => this.setState({categories: response.data}))
             .catch(error => console.log(error))
+        if(this.props.id !== null && this.props.id !== undefined){
+            axios.get(API_URL+this.props.id,{headers:{'Authorization': this.props.token}})
+                .then(response => {
+                    this.setState({
+                        id: this.props.id,
+                        name: response.data.name,
+                        unity: response.data.unity,
+                        devise: response.data.devise,
+                        categoryId: response.data.categoryId,
+                        quantityThreshold: response.data.quantityThreshold,
+                        longDescription: response.data.longDescription,
+                        shortDescription: response.data.shortDescription})
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     onClickHandler = () => {
         const product = {...this.state}
         delete product.categories
-        console.log(product)
-        axios.post(API_URL,product,{headers:{'Authorization' : this.props.token}})
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
+        if(this.state.id === null ){
+            axios.post(API_URL + "new", product, {headers: {'Authorization': this.props.token}})
+                .then(response => this.props.onSubmit())
+                .catch(error => console.log(error))
+        }
+        else {
+            axios.put(API_URL+this.state.id, this.state,{
+                headers: {
+                    'Authorization': this.props.token
+                }
+            })
+                .then(response => this.props.onSubmit())
+                .catch(error => console.log(error))
+        }
     }
 
     pictureToByte = (picture) => {
@@ -50,12 +75,10 @@ class AddProduct extends Component{
         fileReader.readAsArrayBuffer(picture);
         fileReader.onload = () => {
             let bytes = new Uint8Array(fileReader.result)
-            console.log(bytes)
         }
     }
 
     onImagesUpload = (pictures) => {
-        console.log(pictures);
         pictures.map(picture => this.pictureToByte(picture))
         this.setState({image1: pictures[0], image2: pictures[1], image3:pictures[2]})
     }
@@ -64,12 +87,13 @@ class AddProduct extends Component{
         return(
             <div className={classes.container}>
                 <CloseIcon className={classes.closeIcon} onClick={this.props.onClose}/>
-                <div className={classes.title}>New Product</div>
+                <div className={classes.title}>{this.props.operation} Product</div>
                     <form className={classes.form}>
                         <div className={classes.flex_container}>
                             <div className={classes.left}>
                                 <div className={classes.input}>
                                     <TextField label={"Product Name"}
+                                               value={this.state.name}
                                                fullWidth={true}
                                                size={"small"}
                                                variant="outlined"
@@ -79,7 +103,8 @@ class AddProduct extends Component{
                                     <div className={classes.select}>
                                         <FormControl variant="outlined" fullWidth={true} size={"small"} >
                                             <InputLabel>Unity</InputLabel>
-                                            <Select onChange={event => this.setState({unity: event.target.value})}>
+                                            <Select onChange={event => this.setState({unity: event.target.value})}
+                                                    value={this.state.unity}>
                                                 <MenuItem value={"cm"}>Cm</MenuItem>
                                                 <MenuItem value={"l"}>Liter</MenuItem>
                                                 <MenuItem value={"kg"}>Kilograms</MenuItem>
@@ -90,7 +115,8 @@ class AddProduct extends Component{
                                     <div className={classes.select}>
                                         <FormControl variant="outlined" fullWidth={true} size={"small"}>
                                             <InputLabel>Devise</InputLabel>
-                                            <Select onChange={event => this.setState({devise: event.target.value})}>
+                                            <Select onChange={event => this.setState({devise: event.target.value})}
+                                                    value={this.state.devise}>
                                                 <MenuItem value={"dt"}>Dinar Tunisien</MenuItem>
                                                 <MenuItem value={"euro"}>Euro</MenuItem>
                                                 <MenuItem value={"dollar"}>Dollar</MenuItem>
@@ -101,7 +127,8 @@ class AddProduct extends Component{
                                 <div className={classes.category}>
                                     <FormControl variant="outlined" fullWidth={true} size={"small"}>
                                         <InputLabel>Category</InputLabel>
-                                        <Select onChange={event => this.setState({categoryId: event.target.value})} >
+                                        <Select onChange={event => this.setState({categoryId: event.target.value})}
+                                                value={this.state.categoryId} >
                                             {this.state.categories.map((category) => <MenuItem key={category.id}
                                                                                                value={category.id}>
                                                 {category.name}
@@ -112,6 +139,7 @@ class AddProduct extends Component{
                                 <div className={classes.input}>
                                     <TextField label={"Product Stock Threshold"}
                                                size={"small"}
+                                               value={this.state.quantityThreshold}
                                                type={"number"}
                                                fullWidth={true}
                                                variant="outlined"
@@ -126,12 +154,13 @@ class AddProduct extends Component{
                                     <Button
                                             color={"primary"}
                                             variant={"contained"} startIcon={<AddIcon/>}
-                                            onClick={this.onClickHandler}>Add Product</Button>
+                                            onClick={this.onClickHandler}>{this.props.operation} Product</Button>
                                 </div>
                             </div>
                             <div className={classes.right}>
                                 <div className={classes.input}>
                                     <TextField label={"Short Description"}
+                                               value={this.state.shortDescription}
                                                size={"small"}
                                                multiline={true}
                                                rows={5}
@@ -141,6 +170,7 @@ class AddProduct extends Component{
                                 </div>
                                 <div className={classes.input}>
                                     <TextField label={"Long Description"}
+                                               value={this.state.longDescription}
                                                size={"small"}
                                                multiline={true}
                                                rows={15}
@@ -162,4 +192,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps)(AddProduct);
+export default connect(mapStateToProps)(Product);

@@ -7,8 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import classes from './Modal.modules.css';
-import * as actionCreators from '../../store/actions/index';
-import {connect} from "react-redux";
 
 class Modal extends Component {
 

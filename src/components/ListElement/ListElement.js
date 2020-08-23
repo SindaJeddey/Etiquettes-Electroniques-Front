@@ -12,7 +12,7 @@ const ListElement = ({id,name, onDeleteHandler, onUpdateHandler}) => {
                 {name}
             </TableCell>
             <TableCell align="center" padding={"none"}>
-                <EditIcon onClick={() => onUpdateHandler(id)}/>
+                <EditIcon onClick={() => onUpdateHandler(id,name)}/>
             </TableCell>
             <TableCell>
                 <DeleteOutlineIcon onClick={() => onDeleteHandler(id)}/>

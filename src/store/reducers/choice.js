@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     choice: "",
-    element: null,
+    elementId: null,
     items: null
 }
 
@@ -17,7 +17,7 @@ const Reducer = (state = initialState,action) => {
         case (actionTypes.SET_ELEMENT):
             return {
                 ...state,
-                element: action.element
+                elementId: action.elementId
             }
             break;
         case (actionTypes.SET_ITEMS):

@@ -7,10 +7,10 @@ export const setChoice = (choice) => {
     }
 }
 
-export const setElement = (element) => {
+export const setElement = (elementId) => {
     return{
         type: SET_ELEMENT,
-        element: element
+        elementId: elementId
     }
 }
 

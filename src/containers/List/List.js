@@ -3,10 +3,7 @@ import {withRouter} from "react-router";
 import classes from './List.module.css';
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit';
 import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import TableFooter from "@material-ui/core/TableFooter";
@@ -30,7 +27,6 @@ class List extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.choice)
         axios.get(API_URL+this.props.choice.toLowerCase(), {
             headers:{
                 'Authorization':this.props.token
@@ -38,7 +34,6 @@ class List extends Component {
         })
             .then(response => {
                 this.props.onSetItems(response.data)
-                console.log(response)
             })
             .catch(error => console.log(error))
     }
@@ -49,6 +44,12 @@ class List extends Component {
 
     deleteHandler = (id) => {
         this.setState({deleteModal: true, id:id})
+    }
+
+    updateHandler = (id) => {
+        this.props.onSetElementId(id);
+        this.props.update()
+        this.props.history.push("/"+this.props.choice.toLowerCase()+"/update");
     }
 
     onConfirm = () => {
@@ -108,7 +109,8 @@ class List extends Component {
                                              this.props.choice.toLowerCase() === "super-operators"
                                                  ? row.username
                                                  : row.name}
-                                             onDeleteHandler={this.deleteHandler}/>
+                                             onDeleteHandler={this.deleteHandler}
+                                             onUpdateHandler={this.updateHandler}/>
                             ))}
                         </TableBody>
                         <TableFooter>
@@ -138,14 +140,17 @@ class List extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    authority: state.credentialsReducer.authority,
     choice: state.choiceReducer.choice,
+    elementId: state.choiceReducer.elementId,
     items: state.choiceReducer.items,
     token: 'Bearer '+state.credentialsReducer.token
 });
 
 
 const mapStateToDispatch = (dispatch) => ({
-    onSetItems: (items) => dispatch(actionCreators.setItems(items))
+    onSetItems: (items) => dispatch(actionCreators.setItems(items)),
+    onSetElementId: (id) => dispatch(actionCreators.setElement(id))
 })
 
 export default connect(mapStateToProps,mapStateToDispatch)(withRouter(List))

@@ -29,7 +29,7 @@ class Search extends Component {
                         </Grid>
                     </Grid>
                 </div>
-                <List search={this.state.search}/>
+                <List search={this.state.search} update={this.props.update}/>
             </div>
         )
     }

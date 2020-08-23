@@ -1,10 +1,10 @@
 .container {
     height: 100%;
     position: absolute;
-    width: 56.25%;
-    top: 0%;
+    width: 55%;
+    top: 0;
     bottom: 15%;
-    left: 43.75%;
+    left: 44.25%;
 }
 
 .title{
@@ -15,6 +15,12 @@
 }
 
 .input{
+    margin: 4% auto;
+    width: 70%;
+}
+
+.imageInput{
+    height: 5%;
     margin: 4% auto;
     width: 70%;
 }
@@ -38,6 +44,6 @@
 
 .form {
     position: relative;
-    top: 10%;
+    top: 15%;
     width: 100%;
 }
