@@ -9,14 +9,14 @@ import Modal from "../../components/Modal/Modal";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-
 const decoder = require('jwt-decode')
 
 class Login extends Component{
 
     state = {
         forgotPassword: false,
-        email: null
+        email: null,
+        error:false
     }
 
     onClickHandler = (event) => {
@@ -37,11 +37,11 @@ class Login extends Component{
                     token: token,
                     authority: auth
                 });
-                this.setState({redirect: true});
+                this.props.history.push('/dash')
             })
             .catch(error => {
                 console.log(error);
-                this.props.history.replace('/')
+                this.setState({error: true})
             });
     }
 
@@ -62,17 +62,18 @@ class Login extends Component{
             .then(response => {
                 this.props.onSetToken(response.data.token);
                 this.setState({resetEmailSent: true});
-                console.log(this.props)
             })
             .catch(error => console.log(error))
     }
 
     render() {
-        if (this.props.token !== null)
-            return (<Redirect to={"/welcome"} />)
+        if(!this.props.store)
+            return <Redirect to={'/'}/>
         return(
             <div className={classes.container}>
-                <h2 className={cx("pt-5 mb-5",classes.title)}>Log In</h2>
+                <div className={classes.subcontainer}>
+                <h2 className={classes.title}>Log In</h2>
+                    {this.state.error? <div className={classes.error}>* Username or password incorrect</div> : null}
                 <form className={classes.form}>
                     <div className={classes.input}>
                         <TextField label="Username"
@@ -100,12 +101,12 @@ class Login extends Component{
                            subscribe={true}
                            onEmailSend={this.onEmailSend}/>
                     <div className={classes.buttonContainer}>
-                       <Button size={"large"} className={classes.button}
-                               color={"primary"}
+                       <Button size={"large"}
                                variant={"contained"}
                                onClick={event => this.onClickHandler(event)}>Login</Button>
                    </div>
                 </form>
+                </div>
             </div>
         )
     }
@@ -117,7 +118,8 @@ const mapStateToProps = (state) => (
         username: state.credentialsReducer.username,
         password: state.credentialsReducer.password,
         token: state.credentialsReducer.token,
-        authority: state.credentialsReducer.authority
+        authority: state.credentialsReducer.authority,
+        store: state.credentialsReducer.store
     }
 )
 

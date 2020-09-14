@@ -2,7 +2,8 @@ export {
     login,
     logout,
     updatePassword,
-    updateUsername
+    updateUsername,
+    setStore
 } from "./credentials"
 
 export {

@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT, UPDATE_PASSWORD, UPDATE_USERNAME} from "./actionTypes";
+import {LOGIN, LOGOUT, SET_STORE, UPDATE_PASSWORD, UPDATE_USERNAME} from "./actionTypes";
 
 export const login = (credentials) => {
     return{
@@ -27,5 +27,12 @@ export const updatePassword = (password) => {
     return{
         type: UPDATE_PASSWORD,
         password: password
+    }
+}
+
+export const setStore = (store) => {
+    return{
+        type: SET_STORE,
+        store: store
     }
 }

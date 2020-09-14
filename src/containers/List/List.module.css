@@ -1,32 +1,40 @@
 .container {
-    position: relative;
-    top: 17%;
-    left: 5%;
-    width: 90%;
+    position: absolute;
+    width: 55%;
+    height: 100%;
+    left: 32.5%;
+    display: flex;
+    justify-content: center;
 }
 
-.table{
-    position: relative;
+.searchContainer {
+    position: absolute;
+    top: 5%;
+    width: 50%;
+    color: #343a40;
+    display: flex;
+    align-content: center;
 }
 
-.deleteIcon {
-    display: inline;
-    margin-left: 20%;
+.searchField{
+    width: 50%;
+    margin-left: 4%;
 }
 
-.deleteIcon:hover{
+.category{
+    width: 50%;
+    margin-right: 4%;
+}
+
+.list{
+    margin-top: 15%;
+    width: 100%;
+}
+
+.cell{
+    text-align: center;
+}
+
+.row:hover{
     cursor: pointer;
-    color: #d62828;
 }
-
-
-.editIcon{
-    display: inline;
-    margin-left: 20%;
-}
-
-.editIcon:hover{
-    cursor: pointer;
-    color: green;
-}
-

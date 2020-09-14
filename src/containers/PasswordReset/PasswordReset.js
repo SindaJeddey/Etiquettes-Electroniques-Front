@@ -14,7 +14,8 @@ class PasswordReset extends Component {
     state = {
         password: null,
         passwordConfirmation: null,
-        response: false
+        response: false,
+        error:false
     }
 
     componentDidMount() {
@@ -35,18 +36,21 @@ class PasswordReset extends Component {
     }
 
     onClickHandler = (event) => {
-        event.preventDefault();
-
-        const newPasswordDto = {
-            newPassword: this.state.password,
-            token: this.props.token
+        if(this.state.password.localeCompare(this.state.passwordConfirmation) === 1
+            || this.state.password.localeCompare(this.state.passwordConfirmation) === -1)
+            this.setState({error: true})
+        else {
+            const newPasswordDto = {
+                newPassword: this.state.password,
+                token: this.props.token
+            }
+            axios.post("https://localhost:8443/api/password/reset", newPasswordDto)
+                .then(response => {
+                    if(response.data === "SAVED")
+                        this.setState({response: true})
+                })
+                .catch(error => console.log(error));
         }
-        axios.post("https://localhost:8443/api/password/reset", newPasswordDto)
-            .then(response => {
-                if(response.data === "SAVED")
-                    this.setState({response: true})
-            })
-            .catch(error => console.log(error));
     }
 
     onModalClose = () => {
@@ -59,30 +63,37 @@ class PasswordReset extends Component {
             this.props.history.replace('/');
         return(
             <div className={classes.container}>
-                <h2 className={cx("pt-5 mb-5",classes.title)}>New Password</h2>
-                <form className={classes.form}>
-                    <div className={classes.input}>
-                        <TextField label="New Password"
-                                   variant="outlined"
-                                   fullWidth={true}
-                                   onChange={(event => this.setState({password: event.target.value}))} type={"password"}/>
-                    </div>
-                    <div className={classes.input}>
-                        <TextField label="Confirm New Password" variant="outlined" fullWidth={true} type={"password"}/>
-                    </div>
-                    <div className={classes.buttonContainer}>
-                        <Button size={"large"} className={classes.button}
-                                color={"primary"}
-                                variant={"contained"}
-                                onClick={event => this.onClickHandler(event)}>Submit</Button>
-                    </div>
-                </form>
-                <Modal title={"Password Reset"}
-                       text={"Password has been successfully reset"}
-                       email={false}
-                       subscribe={false}
-                       open={this.state.response}
-                       onClose={this.onModalClose}/>
+                <div className={classes.subcontainer}>
+                    <h2 className={classes.title}>New Password</h2>
+                    {this.state.error? <div className={classes.error}>* Passwords are not matching</div> : null}
+                    <form className={classes.form}>
+                        <div className={classes.input}>
+                            <TextField label="New Password"
+                                       fullWidth={true}
+                                       variant="outlined"
+                                       type={"password"}
+                                       onChange={(event) => this.setState({password:event.target.value})}/>
+                        </div>
+                        <div className={classes.input}>
+                            <TextField label="Confirm New Password"
+                                       fullWidth={true}
+                                       variant="outlined"
+                                       type={"password"}
+                                       onChange={(event) => this.setState({passwordConfirmation: event.target.value})}/>
+                        </div>
+                        <div className={classes.buttonContainer}>
+                            <Button size={"large"}
+                                    variant={"contained"}
+                                    onClick={event => this.onClickHandler(event)}>Submit</Button>
+                        </div>
+                        <Modal title={"Password Reset"}
+                               text={"Password has been successfully reset"}
+                               email={false}
+                               subscribe={false}
+                               open={this.state.response}
+                               onClose={this.onModalClose}/>
+                    </form>
+                </div>
             </div>
         )
     }

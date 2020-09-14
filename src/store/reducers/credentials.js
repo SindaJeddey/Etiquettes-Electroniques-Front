@@ -4,7 +4,8 @@ const initialState = {
     username:null,
     password:null,
     token: null,
-    authority: null
+    authority: null,
+    store:null
 }
 
 const Reducer = (state = initialState, action) => {
@@ -41,6 +42,13 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 password: action.password
+            }
+            break;
+
+        case (actionTypes.SET_STORE):
+            return {
+                ...state,
+                store: action.store
             }
             break;
     }

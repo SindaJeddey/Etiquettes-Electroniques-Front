@@ -1,10 +1,19 @@
-.container{
+.subcontainer{
+    background: #F1FAEE;
     position: absolute;
     width: 35%;
     height: 70%;
-    top: 15%;
-    bottom: 15%;
-    left: 50%;
+    border-radius: 6px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #343a40;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .input{
@@ -18,26 +27,24 @@ width: 100%;
 }
 
 .buttonContainer{
-    width: auto;
-    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+    margin: 15% auto;
 }
 
-.button{
-    position: relative;
-    left: 41%;
-    margin: 0 auto;
-}
-
-.button:hover{
-    background: #008d7b;
-}
 
 .title{
+    margin-top: 10%;
+    margin-bottom: 5%;
     font-size: 45px;
     text-align: center;
 }
 
-
+.error{
+    color: #d62828;
+    text-align: center;
+    font-size: 17px;
+}
 .fpw{
     position: absolute;
     right: 0;

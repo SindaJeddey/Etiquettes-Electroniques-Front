@@ -1,0 +1,41 @@
+.subcontainer{
+    background: #F1FAEE;
+    position: absolute;
+    width: 35%;
+    height: 70%;
+    border-radius: 6px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #343a40;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.input{
+    margin: 7% auto;
+    width: 70%;
+}
+
+.form {
+    position: relative;
+    width: 100%;
+}
+
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    margin: 15% auto;
+}
+
+
+.title{
+    margin-top: 10%;
+    margin-bottom: 10%;
+    font-size: 45px;
+    text-align: center;
+}

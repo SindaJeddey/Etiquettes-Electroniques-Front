@@ -1,38 +1,32 @@
 import React, {Component} from 'react';
 import './App.css';
-import {connect} from "react-redux";
-import Layout from "./components/Layout/Layout";
-import {Route} from "react-router";
-import Logout from "./containers/Logout/Logout";
-import Profile from "./components/Profile/Profile";
 import Login from "./containers/Login/Login";
-import Choices from "./components/Choices/Choices";
-import Panel from "./containers/Panel/Panel";
-import PasswordReset from "./containers/PasswordReset/PasswordReset";
+import Store from "./containers/ChooseStore/Store";
+import {connect} from "react-redux";
+import {Route, withRouter} from "react-router";
+import Layout from "./hoc/Layout";
+import Content from "./components/Content/Content";
+import UserProfile from "./containers/UserProfile/UserProfile";
 class App extends Component{
 
     render() {
         return(
             <div>
-                <Layout>
-                    {this.props.token!==null? <Logout/> : null}
-                    {this.props.token!==null? <Profile/> : null}
-                    <Route path={"/welcome"} exact component={Choices}/>
-                    <Route path={"/password_reset"} exact component={PasswordReset}/>
-                    <Route path={"/:choice/:option"} exact component={Panel}/>
-                    <Route path="/" exact component={Login}/>
-                </Layout>
+                {!this.props.store ? <Store/> :
+                    !this.props.token ? <Login/> :
+                        <Layout>
+                            <Route path={"/profile"} exact render={() => <UserProfile/>}/>
+                            <Route path={"/:choice/:operation"} render={() => <Content/>} />
+                    </Layout>}
             </div>
+
         )
     }
 }
 
-const mapStateToProps = (state) => (
-    {
-        token: state.credentialsReducer.token,
-        choice: state.choiceReducer.choice
-    }
-)
+const mapStateToProps =(state) => ({
+    token: state.credentialsReducer.token,
+    store: state.credentialsReducer.store
+})
 
-
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

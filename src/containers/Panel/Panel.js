@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import SideMenu from "../../components/SideMenu/SideMenu";
 import {connect} from "react-redux";
 import classes from './Panel.module.css';
-import Search from "../Search/Search";
-import {Route, withRouter} from "react-router";
-import User from "../Add/User/User";
-import Category from "../Add/Category/Category";
-import Product from "../Add/Product/Product";
-import Store from "../Add/Store/Store";
+import Search from "../List/List";
+import {Route, Switch, withRouter} from "react-router";
+import User from "../Models/User/User";
+import Category from "../Models/Category/Category";
+import Product from "../Models/Product/Product";
+import Store from "../Models/Store/Store";
 import Update from "../Update/Update";
 
 class Panel extends Component {
@@ -62,11 +62,13 @@ class Panel extends Component {
         }
         return(
             <div className={classes.container}>
-                    <SideMenu searchClick={this.onSearchClick} addClick={this.onAddClick} goBack={this.goBack}/>
-                    <Route path={"/:choice/search"} exact render={() => <Search choice={this.props.choice.replace("s", "")}
-                                                                          onClose={this.onClose} update={this.onClose}/>}/>
+                <SideMenu searchClick={this.onSearchClick} addClick={this.onAddClick} goBack={this.goBack}/>
+                {/*<Switch>*/}
+                {/*    <Route path={"/:choice/search"} exact render={() => <List choice={this.props.choice.replace("s", "")}*/}
+                {/*                                                                onClose={this.onClose} update={this.onClose}/>}/>*/}
+                {/*    <Route path={"/:choice/update"} exact render={() => <Update onClose={this.onClose}/>}/>*/}
+                {/*</Switch>*/}
                 {add}
-                    <Route path={"/:choice/update"} exact render={() => <Update onClose={this.onClose}/>}/>
             </div>
         )
     }
