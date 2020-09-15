@@ -11,10 +11,6 @@ import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import {connect} from "react-redux";
 import {FormHelperText} from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import {withRouter} from "react-router";
 
 const CATEGORIES = "https://localhost:8443/api/categories";
@@ -70,31 +66,6 @@ class Product extends Component{
         }
     }
 
-    onDeleteHandler = () => {
-        axios.delete(API_URL+this.props.id)
-            .then(response => this.props.history.push("/products/browse"))
-            .catch(error => console.log(error))
-    }
-
-    onAddHandler = () => {
-        if(this.validateForm(this.state.errors)){
-            const mvt = {
-                type: "IN",
-                quantity: this.state.quantity,
-                product: {
-                    product: {
-                        id: this.props.id
-                    },
-                    store: {
-                        id: this.props.store
-                    }
-                }
-            }
-            axios.put("https://localhost:8443/api/stores/" + this.props.store + "/products/add", mvt)
-                .then(response => console.log(response))
-                .catch(error => console.log(error))
-        }
-    }
 
     handleChange = (event) => {
         const {name, value} = event.target;
@@ -387,7 +358,9 @@ class Product extends Component{
                             </div>
                         </div>
                         <div className={classes.button}>
-                            <Button
+                            <Button style={{
+                                backgroundColor: "#f57c00", color:"#F1FAEE"
+                            }}
                                 variant={"contained"} startIcon={<AddIcon/>}
                                 onClick={this.onClickHandler}>{this.props.operation} Product</Button>
                         </div>

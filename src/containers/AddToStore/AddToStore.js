@@ -23,7 +23,7 @@ class AddToStore extends Component{
     }
 
     componentDidMount() {
-        axios.get(API+this.props.store+"/products/"+this.props.row)
+        axios.get(API+this.props.store+"/products/"+this.props.row,{headers:{'Authorization': this.props.token}})
             .then(response => {
                 console.log(response.data)
                 if(response.data.inStoreProductCode === null)
@@ -75,7 +75,7 @@ class AddToStore extends Component{
                     },
                     quantity:this.state.quantity
                 }
-                axios.put(API+this.props.store+"/products/add",movement)
+                axios.put(API+this.props.store+"/products/add",movement,{headers:{'Authorization': this.props.token}})
                     .then(response => this.props.history.push("/stores/browse"))
                     .catch(response => console.log(response))
             }
@@ -102,7 +102,9 @@ class AddToStore extends Component{
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus color="primary" onClick={this.onClick}>
+                    <Button autoFocus color="primary" onClick={this.onClick} style={{
+                        backgroundColor: "#f57c00", color:"#F1FAEE"
+                    }}>
                         {!this.state.productExists?"Add Product":"Close"}
                     </Button>
                 </DialogActions>
@@ -111,6 +113,7 @@ class AddToStore extends Component{
     }
 }
 const mapStateToDispatch = (state) => ({
-    store:state.credentialsReducer.store.storeCode
+    store:state.credentialsReducer.store.storeCode,
+    token:'Bearer '+state.credentialsReducer.token
 })
 export default withRouter(connect(mapStateToDispatch)(AddToStore));

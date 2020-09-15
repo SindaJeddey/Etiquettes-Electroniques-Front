@@ -46,7 +46,7 @@ class List extends Component {
         switch (role){
             case "operators":
                 columns=['#','Username','Delete Operator'];
-                axios.get(API+"operators")
+                axios.get(API+"operators",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((user,index) =>{
                             data.push({code:user.username,id:index,username:user.username})
@@ -57,7 +57,7 @@ class List extends Component {
                 break;
             case "super-operators":
                 columns=['#','Username','Delete Super-Operator'];
-                axios.get(API+"super-operators")
+                axios.get(API+"super-operators",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((user,index) =>{
                             data.push({code:user.username,id:index,name:user.username})
@@ -68,7 +68,7 @@ class List extends Component {
                 break;
             case "categories":
                 columns=['#','Category','Delete Category'];
-                axios.get(API+"categories")
+                axios.get(API+"categories",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((cat,index)=>{
                             data.push({code:cat.categoryCode,id:index,name:cat.name})
@@ -79,7 +79,7 @@ class List extends Component {
                 break;
             case "products":
                 columns=['#','Product','Category','Delete Product','Add To Store','Promo'];
-                axios.get(API+"products")
+                axios.get(API+"products",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((product,index) =>{
                             data.push({code:product.productCode,id:index,name:product.name,category:product.category})
@@ -87,14 +87,14 @@ class List extends Component {
                         this.setState({columns:columns,data:data})
                     })
                     .catch(error => console.log(error))
-                axios.get(API+"categories")
+                axios.get(API+"categories",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         this.setState({categories: response.data})
                     })
                 break;
             case "stores":
                 columns=['#','Product','Category','Delete From Store','Add To Store'];
-                axios.get(API+"stores/"+this.props.store+"/products")
+                axios.get(API+"stores/"+this.props.store+"/products",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.inStoreProducts.forEach((product,index) =>{
                             data.push({code:product.inStoreProductCode,id:index,name:product.product.name,category:product.product.category})
@@ -102,7 +102,7 @@ class List extends Component {
                         this.setState({columns:columns,data:data})
                     })
                     .catch(error => console.log(error))
-                axios.get(API+"categories")
+                axios.get(API+"categories",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         this.setState({categories: response.data})
                     })
@@ -132,7 +132,7 @@ class List extends Component {
         const role  = this.props.match.params.choice;
         switch (role) {
             case "operator":
-                axios.delete(API+"operators/"+id)
+                axios.delete(API+"operators/"+id,{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         let data = this.state.data
                         data = data.filter(row => row.username !== id)
@@ -141,7 +141,7 @@ class List extends Component {
                     .catch(error => console.log(error))
                 break;
             case "super-operator":
-                axios.delete(API+"super-operators/"+id)
+                axios.delete(API+"super-operators/"+id,{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         let data = this.state.data
                         data = data.filter(row => row.username !== id)
@@ -150,7 +150,7 @@ class List extends Component {
                     .catch(error => console.log(error))
                 break;
             case "categories":
-                axios.delete(API+"categories/"+id)
+                axios.delete(API+"categories/"+id,{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         let data = this.state.data
                         data = data.filter(row => row.code !== id)
@@ -159,7 +159,7 @@ class List extends Component {
                     .catch(error => console.log(error))
                 break;
             case "products":
-                axios.delete(API+"products/"+id)
+                axios.delete(API+"products/"+id,{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         let data = this.state.data
                         data = data.filter(row => row.code !== id)
@@ -175,7 +175,7 @@ class List extends Component {
                         store:{storeCode:this.props.store}
                     }
                 }
-                axios.put(API+"stores/"+this.props.store+"/products/delete",mvt)
+                axios.put(API+"stores/"+this.props.store+"/products/delete",mvt,{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         let data = this.state.data
                         console.log(response)
@@ -271,12 +271,16 @@ class List extends Component {
                                                 {entry}
                                             </TableCell>)}
                                                 <TableCell align={"center"}>
-                                                    <Button startIcon={<DeleteIcon/>}
+                                                    <Button style={{
+                                                        backgroundColor: "#f57c00", color:"#F1FAEE"
+                                                    }} startIcon={<DeleteIcon/>}
                                                             onClick={(event) => this.onDeleteHandler(event,row.code)}>Delete</Button>
                                                 </TableCell>
                                             {role==="products"?
                                                 <TableCell align={"center"}>
-                                                    <Button startIcon={<AddIcon/>}
+                                                    <Button style={{
+                                                        backgroundColor: "#f57c00", color:"#F1FAEE"
+                                                    }} startIcon={<AddIcon/>}
                                                             onClick={(event) => {
                                                                 event.stopPropagation()
                                                                 this.setState({addToStoreModal:true, selectedRow: row.code})
@@ -284,7 +288,9 @@ class List extends Component {
                                                 </TableCell>:
                                                 role==="inStoreProducts"?
                                                     <TableCell align={"center"}>
-                                                        <Button startIcon={<AddIcon/>}
+                                                        <Button style={{
+                                                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                                                        }} startIcon={<AddIcon/>}
                                                                 onClick={(event) => {
                                                             event.stopPropagation()
                                                             this.setState({addTransactionModal:true, selectedRow: row.code})
@@ -293,7 +299,9 @@ class List extends Component {
                                                     :null}
                                             {role==="products"?
                                                 <TableCell align={"center"}>
-                                                    <Button onClick={(event) => {
+                                                    <Button style={{
+                                                        backgroundColor: "#f57c00", color:"#F1FAEE"
+                                                    }} onClick={(event) => {
                                                         event.stopPropagation()
                                                         this.setState({promoModal: true, selectedRow: row.code})
                                                     }}>Promo</Button>
@@ -320,6 +328,7 @@ class List extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    token:'Bearer '+state.credentialsReducer.token,
     choice: state.choiceReducer.choice,
     store: state.credentialsReducer.store.storeCode
 })

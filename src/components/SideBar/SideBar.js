@@ -22,7 +22,7 @@ const SideBar = (props) => {
             </div>
             <div className={classes.footer}>
                 <div className={classes.footerItem}>
-                    <AccountCircleIcon/> <Link to={"/profile"}>Profile</Link>
+                    <AccountCircleIcon/> <Link to={"/profile"} style={{ textDecoration: 'none' , color: '#F1FAEE'}}>Profile</Link>
                 </div>
                 <div className={classes.footerItem} onClick={() => props.onLogout()}>
                     <ExitToAppIcon/> Logout

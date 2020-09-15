@@ -16,6 +16,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import {connect} from "react-redux";
 
 const API ="https://localhost:8443/api/"
 class Transactions extends Component{
@@ -28,7 +29,7 @@ class Transactions extends Component{
 
     componentDidMount() {
         let data = []
-        axios.get(API+"transactions/"+this.props.id)
+        axios.get(API+"transactions/"+this.props.id,{headers:{'Authorization': this.props.token}})
             .then(response => {
                 console.log(response.data)
                 response.data.forEach((row,index) =>
@@ -94,4 +95,7 @@ class Transactions extends Component{
     }
 }
 
-export default Transactions;
+const mapStateToProps = (state) => ({
+    token:'Bearer '+state.credentialsReducer.token
+})
+export default connect(mapStateToProps)(Transactions);

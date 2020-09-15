@@ -33,7 +33,8 @@ class AddTransaction extends Component{
     }
 
     componentDidMount() {
-        axios.get(API+"stores/"+this.props.store+"/products/"+this.props.row)
+        console.log(this.props.token)
+        axios.get(API+"stores/"+this.props.store+"/products/"+this.props.row,{headers:{'Authorization': this.props.token}})
             .then(response => {
                 if(response.data.inStoreProductCode === null)
                     this.setState({threshold: response.data.product.threshold})
@@ -113,9 +114,8 @@ class AddTransaction extends Component{
                 },
                 quantity:this.state.quantity
             }
-            console.log(movement)
-            axios.put(API+"transactions/add",movement)
-                .then(response => this.props.history.push("/stores/browse"))
+            axios.put(API+"transactions/add",movement,{headers:{'Authorization': this.props.token}})
+                .then(response => this.props.closeModal())
                 .catch(response => console.log(response))
         }
     }
@@ -155,7 +155,9 @@ class AddTransaction extends Component{
                         </div>
                     </DialogContent>
                 <DialogActions>
-                    <Button autoFocus color="primary" onClick={this.onClick}>
+                    <Button style={{
+                        backgroundColor: "#f57c00", color:"#F1FAEE"
+                    }} autoFocus color="primary" onClick={this.onClick}>
                         Add Transaction
                     </Button>
                 </DialogActions>
@@ -165,7 +167,8 @@ class AddTransaction extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    store: state.credentialsReducer.store.storeCode
+    store: state.credentialsReducer.store.storeCode,
+    token:'Bearer '+state.credentialsReducer.token
 })
 
 export default withRouter(connect(mapStateToProps)(AddTransaction));

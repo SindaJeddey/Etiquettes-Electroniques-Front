@@ -113,7 +113,9 @@ class Category extends Component{
                     <div>
                     </div>
                     <div className={classes.button}>
-                        <Button
+                        <Button style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                        }}
                                 variant={"contained"}
                                 startIcon={<AddIcon/>}
                                 onClick={this.onClickHandler}>{this.props.operation} Category</Button>

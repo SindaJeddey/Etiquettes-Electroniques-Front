@@ -40,12 +40,16 @@ class Modal extends Component {
                         /> : null : null }
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.onClose} color="primary">
+                        <Button style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                        }} onClick={this.props.onClose} color="primary">
                             Dismiss
                         </Button>
                         {this.props.subscribe === true ?
                             this.props.email === true?
-                            this.state.resetEmailSent === false ? <Button onClick={this.props.onEmailSend} color="primary">
+                            this.state.resetEmailSent === false ? <Button style={{
+                                backgroundColor: "#f57c00", color:"#F1FAEE"
+                            }} onClick={this.props.onEmailSend} color="primary">
                             Subscribe
                         </Button> : null : <Button onClick={this.props.confirm} color="primary">
                                     Confirm

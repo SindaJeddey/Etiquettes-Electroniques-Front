@@ -86,6 +86,9 @@ class Store extends Component{
                         </div>
                         <div className={classes.buttonContainer}>
                             <Button size={"large"}
+                                    style={{
+                                backgroundColor: "#f57c00", color:"#F1FAEE"
+                            }}
                                     variant={"contained"}
                                     disabled={!this.state.selectedStore || !this.state.selectedLocation}
                                     onClick={(event) => this.onClickHandler(event)}>Continue</Button>
@@ -99,7 +102,7 @@ class Store extends Component{
 
 const mapStateToProps = (state) =>({
     store: state.credentialsReducer.store,
-    token: state.credentialsReducer.token
+    token: 'Bearer '+state.credentialsReducer.token
 })
 
 const mapDispatchToProps = (dispatch) => (

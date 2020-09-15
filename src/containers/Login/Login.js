@@ -101,7 +101,9 @@ class Login extends Component{
                            subscribe={true}
                            onEmailSend={this.onEmailSend}/>
                     <div className={classes.buttonContainer}>
-                       <Button size={"large"}
+                       <Button size={"large"} style={{
+                           backgroundColor: "#f57c00", color:"#F1FAEE"
+                       }}
                                variant={"contained"}
                                onClick={event => this.onClickHandler(event)}>Login</Button>
                    </div>

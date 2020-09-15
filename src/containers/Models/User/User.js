@@ -18,7 +18,6 @@ const API_URL = "https://localhost:8443/api/";
 class User extends Component{
 
     state = {
-        id: null,
         name: null,
         lastName: null,
         username: null,
@@ -37,7 +36,7 @@ class User extends Component{
     componentDidMount() {
         const role = this.props.role.toLowerCase()+'s';
         if(this.props.operation ==="Add")
-            axios.get(API_URL+role+"/usernames")
+            axios.get(API_URL+role+"/usernames",{headers:{'Authorization': this.props.token}})
                 .then(response => this.setState({usernames: response.data}))
                 .catch(error => console.log(error));
 
@@ -45,9 +44,7 @@ class User extends Component{
             console.log("here")
             axios.get(API_URL+role+"/"+this.props.id,{headers:{'Authorization': this.props.token}})
                 .then(response => {
-                    console.log(response.data)
                     this.setState({
-                        id: this.props.id,
                         name: response.data.name,
                         lastName: response.data.lastName,
                         username: response.data.username,
@@ -75,7 +72,6 @@ class User extends Component{
                 },
                 usernames: []})
     }
-
 
     handleChange = (event) => {
         const validEmailRegex =
@@ -186,9 +182,7 @@ class User extends Component{
     }
 
     onClickHandler = () => {
-        console.log(this.state.errors)
         if(this.validateForm(this.state.errors)) {
-            console.log("in")
             const user  = { ...this.state}
             delete user.usernames
             const role = this.props.role.toLowerCase()+'s';
@@ -201,7 +195,7 @@ class User extends Component{
                     .then(response => this.props.history.push("/" + role + "/browse"))
                     .catch(error => console.log(error))
             } else {
-                axios.put(API_URL + role + "/" + this.state.id, user, {
+                axios.put(API_URL + role + "/" + this.state.username, user, {
                     headers: {
                         'Authorization': this.props.token
                     }
@@ -211,6 +205,20 @@ class User extends Component{
             }
         }
 
+    }
+
+    pictureToByte = (picture) => {
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(picture);
+        fileReader.onload = () => {
+            let bytes = new Uint8Array(fileReader.result)
+            console.log(bytes)
+        }
+    }
+
+    onImagesUpload = (pictures) => {
+        pictures.map(picture => this.pictureToByte(picture))
+        this.setState({image: btoa(pictures[0])})
     }
 
     render() {
@@ -265,6 +273,7 @@ class User extends Component{
                         </div>
                         <div className={classes.imageInput}>
                             <ImageUploader withIcon={false}
+                                           onChange={this.onImagesUpload}
                                            buttonText='Choose image'
                                            singleImage={true}/>
                         </div>
@@ -283,7 +292,9 @@ class User extends Component{
                             </FormControl>
                         </div>}
                     <div className={classes.buttonContainer}>
-                        <Button
+                        <Button style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                        }}
                                 color={"primary"}
                                 variant={"contained"} startIcon={<PersonAddIcon/>}
                                 onClick={this.onClickHandler}>{operation} {operation === "Add" ? role : this.state.username}</Button>

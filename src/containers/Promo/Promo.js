@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import axios from 'axios';
 import classes from './Promo.module.css'
+import {connect} from "react-redux";
 
 const API = "https://localhost:8443/api/products/promotions/"
 class Promo extends Component{
@@ -33,14 +34,18 @@ class Promo extends Component{
                 const promo = {...this.state}
                 delete promo.errors;
                 delete promo.currentPromo;
-                axios.put(API+this.props.row+"/add",promo)
+                axios.put(API+this.props.row+"/add",promo, {
+                    headers: {
+                        'Authorization': this.props.token
+                    }
+                })
                     .then(response => this.props.closeModal())
                     .catch(error => console.log(error))}
         }
     }
 
     componentDidMount() {
-        axios.get(API+this.props.row)
+        axios.get(API+this.props.row,{headers:{'Authorization': this.props.token}})
             .then(response => {
                 if (response.data !== ""){
                     this.setState({
@@ -190,7 +195,9 @@ class Promo extends Component{
                 </DialogContent>
             }
             <DialogActions>
-                <Button autoFocus color="primary" onClick={this.onClick}>
+                <Button style={{
+                    backgroundColor: "#f57c00", color:"#F1FAEE"
+                }} autoFocus color="primary" onClick={this.onClick}>
                     {!this.state.currentPromo? "Add Promotion":"Close"}
                 </Button>
             </DialogActions>
@@ -199,4 +206,7 @@ class Promo extends Component{
     }
 }
 
-export default Promo;
+const mapStateToProps = (state) => ({
+    token: 'Bearer '+state.credentialsReducer.token
+})
+export default connect(mapStateToProps)(Promo);

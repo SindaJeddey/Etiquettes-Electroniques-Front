@@ -33,7 +33,7 @@ export const OPERATOR = [{
     }];
 export const SUPER_OPERATOR = [{
     section: 'Products',
-    operations:['Add new Product', 'Browse All Products', 'Browse in ChooseStore Products']
+    operations:['Add new Product', 'Browse All Products']
 },{
     section: 'Stores',
     operations:['Browse In Store Products']

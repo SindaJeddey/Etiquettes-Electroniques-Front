@@ -124,7 +124,9 @@ class Store extends Component{
                         </FormControl>
                     </div>
                     <div>
-                        <Button className={classes.button}
+                        <Button className={classes.button} style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                        }}
                                 color={"primary"}
                                 variant={"contained"} startIcon={<AddIcon/>}
                                 onClick={this.onClickHandler}>{this.props.operation} Store</Button>

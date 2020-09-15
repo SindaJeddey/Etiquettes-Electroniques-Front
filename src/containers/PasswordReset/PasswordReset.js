@@ -82,7 +82,9 @@ class PasswordReset extends Component {
                                        onChange={(event) => this.setState({passwordConfirmation: event.target.value})}/>
                         </div>
                         <div className={classes.buttonContainer}>
-                            <Button size={"large"}
+                            <Button style={{
+                                backgroundColor: "#f57c00", color:"#F1FAEE"
+                            }} size={"large"}
                                     variant={"contained"}
                                     onClick={event => this.onClickHandler(event)}>Submit</Button>
                         </div>

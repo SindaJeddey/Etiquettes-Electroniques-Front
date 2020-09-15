@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import axios from 'axios';
 import DateFnsUtils from "@date-io/date-fns";
 import {MuiPickersUtilsProvider,KeyboardDatePicker} from "@material-ui/pickers";
+import {withRouter} from "react-router";
 
 class UserProfile extends Component{
     state = {
@@ -26,7 +27,7 @@ class UserProfile extends Component{
     }
 
     componentDidMount() {
-        axios.get("https://localhost:8443/api/"+this.props.authority+"/"+this.props.username)
+        axios.get("https://localhost:8443/api/"+this.props.authority+"/"+this.props.username,{headers:{'Authorization': this.props.token}})
             .then(response => {
                 console.log(response)
                 this.setState({
@@ -120,7 +121,7 @@ class UserProfile extends Component{
             }
             delete user.errors
             axios.put("https://localhost:8443/api/" + this.props.authority + "/update/" + this.props.username, user, {headers:{'Authorization': this.props.token}})
-                .then(response => console.log(response))
+                .then(response => this.props.history.push('/dash'))
                 .catch(error => console.log(error))
         }
     }
@@ -185,7 +186,9 @@ class UserProfile extends Component{
                                            onChange={event => this.handleChange(event)}/>
                             </div>
                     <div className={classes.buttonContainer}>
-                        <Button
+                        <Button style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE"
+                        }}
                             variant={"contained"}
                             startIcon={<UpdateIcon/>}
                             onClick={this.onClickHandler}>Update Profile</Button>
@@ -199,7 +202,7 @@ class UserProfile extends Component{
 const mapStateToProps = (state) => ({
     username: state.credentialsReducer.username,
     authority: state.credentialsReducer.authority.toLowerCase()+"s",
-    token:state.credentialsReducer.token
+    token:'Bearer '+state.credentialsReducer.token
 })
 
-export default connect(mapStateToProps)(UserProfile);
+export default withRouter(connect(mapStateToProps)(UserProfile));
