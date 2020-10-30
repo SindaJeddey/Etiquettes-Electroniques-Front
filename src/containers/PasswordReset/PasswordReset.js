@@ -3,7 +3,6 @@ import TextField from "@material-ui/core/TextField";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import classes from './PasswordReset.module.css';
-import cx from "classnames";
 import Button from "@material-ui/core/Button";
 import * as actionCreators from  '../../store/actions/index';
 import axios from 'axios';

@@ -4,8 +4,6 @@ export const login = (credentials) => {
     return{
         type: LOGIN,
         username:  credentials.username,
-        password:  credentials.password,
-        token: credentials.token,
         authority: credentials.authority
     }
 }

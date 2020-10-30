@@ -1,6 +1,5 @@
-import React, {Component} from "react";
-import classes from "./Store.module.css";
-import TextField from "@material-ui/core/TextField";
+import React, {Component, useEffect, useState} from "react";
+import "./Store.css";
 import Button from "@material-ui/core/Button";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import StoreIcon from '@material-ui/icons/Store';
@@ -12,98 +11,91 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import * as actionCreators from '../../store/actions/index';
+import {Redirect, withRouter} from "react-router";
 
-const API_URL="https://localhost:8443/api/stores";
-class Store extends Component{
-    state = {
-        locations: [],
-        stores:[],
-        selectedLocation: null,
-        selectedStore: null
-    }
+const Store =(props) => {
 
-    componentDidMount() {
-        axios.get(API_URL+"/locations")
+    const [locations,setLocations] = useState(null);
+    const [stores, setStores] = useState([]);
+    const [location,setLocation] = useState("");
+    const [store,setStore] = useState(null)
+
+    useEffect(() => {
+        console.log("choose store")
+        axios.get("/api/stores/locations")
             .then(response => {
                 let locations = [];
                 for(const value of response.data)
                     locations.push(value)
-                this.setState({locations: locations})
+                setLocations(locations);
             })
+            .catch(error => console.log(error))
+    },[])
+
+    const onSetLocation = (event) => {
+        setLocation(event.target.value);
+        console.log(location)
+        axios.get("/api/stores/locations/"+event.target.value)
+            .then(response => setStores(response.data))
             .catch(error => console.log(error))
     }
 
-    onSetLocation = (event) => {
-        this.setState({selectedLocation: event.target.value},() =>{
-            axios.get(API_URL+"/locations/"+this.state.selectedLocation)
-                .then(response => this.setState({stores: response.data}))
-                .catch(error => console.log(error))
-        })
+    const onSetStore = (event) => setStore(event.target.value);
+
+    const onClickHandler = (event) => {
+        localStorage.setItem('store', JSON.stringify(event.target.value))
+        props.history.push('/home')
     }
 
-    onSetStore = (event) =>{
-        this.setState({selectedStore: event.target.value});
-    }
+    if(!localStorage.getItem('jwt'))
+        return <Redirect to={"/login"}/>
 
-    onClickHandler = (event) => {
-        const store = this.state.selectedStore
-        this.props.setStore(store)
-    }
-
-    render() {
-        return(
-            <div className={classes.container}>
-                <div className={classes.subcontainer}>
-                    <h2 className={classes.title}>Choose Store</h2>
-                    <form className={classes.form}>
-                        <div className={classes.input}>
-                            {this.state.locations ? <FormControl variant="outlined" fullWidth={true}>
-                                <InputLabel inputP>Location</InputLabel>
+    return(
+            <div className={'container'}>
+                <div className={'sub_container'}>
+                    <h2 className={'title'}>Choose Store</h2>
+                    <form className={'form'}>
+                        <div className={'input'}>
+                            {locations ? <FormControl variant="outlined" fullWidth={true}>
+                                <InputLabel>Location</InputLabel>
                                 <Select
-                                    startAdornment={<InputAdornment position="start">
-                                    <LocationOnIcon />
-                                </InputAdornment>}
-                                    value={this.state.selectedLocation || ''}
-                                    onChange={this.onSetLocation}
+                                    startAdornment={<InputAdornment position="start"><LocationOnIcon /></InputAdornment>}
+                                    value={location || ''}
+                                    onChange={event => onSetLocation(event)}
                                     label="Location">
-                                    {this.state.locations.map(location => <MenuItem value={location}>{location}</MenuItem>)}
+                                    {locations.map(location => <MenuItem value={location}>{location}</MenuItem>)}
                                 </Select>
                             </FormControl> : null}
                         </div>
-                        <div className={classes.input}>
-                            {this.state.stores ? <FormControl variant="outlined" fullWidth={true}>
-                                <InputLabel inputP>Store</InputLabel>
+                        <div className={'input'}>
+                            {stores ? <FormControl variant="outlined" fullWidth={true}>
+                                <InputLabel>Store</InputLabel>
                                 <Select
-                                    startAdornment={<InputAdornment position="start">
-                                        <StoreIcon />
-                                    </InputAdornment>}
-                                    value={this.state.selectedStore || ''}
-                                    onChange={this.onSetStore}
+                                    startAdornment={<InputAdornment position="start"><StoreIcon /></InputAdornment>}
+                                    value={store || ''}
+                                    onChange={event => onSetStore(event)}
                                     label="Store">
-                                    {this.state.stores.map(store => <MenuItem value={store}>{store.name}</MenuItem>)}
+                                    {stores.map(store => <MenuItem value={store}>{store.name}</MenuItem>)}
                                 </Select>
                             </FormControl> : null}
                         </div>
-                        <div className={classes.buttonContainer}>
+                        <div className={'button_container'}>
                             <Button size={"large"}
                                     style={{
                                 backgroundColor: "#f57c00", color:"#F1FAEE"
                             }}
                                     variant={"contained"}
-                                    disabled={!this.state.selectedStore || !this.state.selectedLocation}
-                                    onClick={(event) => this.onClickHandler(event)}>Continue</Button>
+                                    disabled={!store || !location}
+                                    onClick={(event) => onClickHandler(event)}>Continue</Button>
                         </div>
                     </form>
                 </div>
             </div>
         )
-    }
+
 }
 
-const mapStateToProps = (state) =>({
-    store: state.credentialsReducer.store,
-    token: 'Bearer '+state.credentialsReducer.token
-})
+
 
 const mapDispatchToProps = (dispatch) => (
     {
@@ -111,4 +103,4 @@ const mapDispatchToProps = (dispatch) => (
     }
 )
 
-export default connect(mapStateToProps,mapDispatchToProps)(Store);
+export default withRouter(connect(null,mapDispatchToProps)(Store));

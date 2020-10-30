@@ -10,6 +10,12 @@ import CredentialsReducer from './store/reducers/credentials';
 import ChoiceReducer from './store/reducers/choice';
 import PasswordReducer from './store/reducers/passwordResetter';
 import {BrowserRouter} from "react-router-dom";
+import axios from 'axios';
+
+axios.defaults.baseURL="https://localhost:8443/";
+if(localStorage.getItem('jwt') !== null)
+    axios.defaults.headers.common['Authorization'] = 'Bearer '+ localStorage.getItem('jwt');
+axios.defaults.httpsAgent ={ rejectUnauthorized: false }
 
 
 const rootReducer = combineReducers({

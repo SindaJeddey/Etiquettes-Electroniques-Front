@@ -6,46 +6,31 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import axios from "axios";
-import React, {Component} from "react";
+import React, {useState} from "react";
 
-class SendEmail extends Component{
-    state ={
-        resetEmailSent: false,
-        error: false,
-        email:"",
-        open:false
+const SendEmail = ( props ) => {
+    const [resetEmailSent, setResetEmailSent] = useState(false);
+    const [error, setError] = useState(false);
+    const [email,setEmail] = useState("")
+
+    const onEmailChange = (email) => {
+        setEmail(email);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevState.open !== this.props.forgortPassword)
-            this.setState({open: this.props.forgortPassword},() => console.log(this.state))
+    const onEmailSend = () => {
+        axios.put("/api/password/token", {email: email})
+            .then(response => setResetEmailSent(true))
+            .catch(error => setError(true))
     }
 
-    onEmailChange = (email) => {
-        this.setState({email: email})
-    }
-
-    onEmailSend = () => {
-        axios.put("https://localhost:8443/api/password/token", {email: this.state.email})
-            .then(response => {
-                this.setState({resetEmailSent: true});
-            })
-            .catch(error => console.log(error.status))
-    }
-
-    closeModal = () => {
-        this.setState({open :false})
-    }
-    render() {
         return(
             <div>
-            <Dialog open={this.state.open}
-                    onClose={this.closeModal}
-                    aria-labelledby={"form-dialog-title"}
+            <Dialog open={props.forgotPassword}
+                    onClose={props.onModalClose}
                     fullWidth={true}>
                 <DialogTitle>Password Reset</DialogTitle>
                 <DialogContent>
-                    {this.state.resetEmailSent === false ?
+                    {resetEmailSent === false ?
                         <TextField
                         autoFocus
                         margin="dense"
@@ -53,22 +38,22 @@ class SendEmail extends Component{
                         label="Email Address"
                         type="email"
                         fullWidth
-                        error={this.state.error}
-                        onChange={event => this.onEmailChange(event.target.value)}
-                        />:
+                        error={error}
+                        helperText={error? "Can't find user with the mentioned email.":""}
+                        onChange={event => onEmailChange(event.target.value)}/>:
                         <DialogContentText>
                             An email with password reset link has been sent to the given email address.
                         </DialogContentText>}
                 </DialogContent>
                 <DialogActions>
                     <Button style={{backgroundColor: "#f57c00", color:"#F1FAEE"}}
-                            onClick={this.closeModal}
+                            onClick={props.onModalClose}
                             color="primary">
                         Dismiss
                     </Button>
-                    {this.state.resetEmailSent === false ?
+                    {resetEmailSent === false ?
                         <Button style={{backgroundColor: "#f57c00", color:"#F1FAEE"}}
-                                onClick={this.onEmailSend}
+                                onClick={onEmailSend}
                                 color="primary">
                             Subscribe
                         </Button>
@@ -77,7 +62,6 @@ class SendEmail extends Component{
             </Dialog>
             </div>
         )
-}
 }
 
 export default SendEmail;

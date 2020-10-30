@@ -15,7 +15,6 @@ const Reducer = (state = initialState, action) => {
             return{
                 ...state,
                 username: action.username,
-                password: action.password,
                 token: action.token,
                 authority: action.authority
             }
@@ -26,8 +25,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 token: null,
                 authority: null,
-                username: null,
-                password: null
+                username: null
             }
             break;
 

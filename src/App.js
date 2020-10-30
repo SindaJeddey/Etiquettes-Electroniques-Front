@@ -3,31 +3,29 @@ import './App.css';
 import Login from "./containers/Login/Login";
 import Store from "./containers/ChooseStore/Store";
 import {connect} from "react-redux";
-import {Route, withRouter} from "react-router";
-import Layout from "./hoc/Layout";
+import {Route, Router, Switch, withRouter} from "react-router";
 import Content from "./components/Content/Content";
 import UserProfile from "./containers/UserProfile/UserProfile";
+import Navbar from "./components/NavBar/NavBar";
+import ProtectedRoute from "./Navigation/ProtectedRoute";
+
+
 class App extends Component{
 
 
     render() {
         return(
-            <div>
-                {!this.props.store ? <Store/> :
-                    !this.props.token ? <Login/> :
-                        <Layout>
-                            <Route path={"/profile"} exact render={() => <UserProfile/>}/>
-                            <Route path={"/:choice/:operation"} render={() => <Content/>} />
-                    </Layout>}
-            </div>
-
+            <>
+                <Switch>
+                    <Route path={'/login'} exact component={Login}/>
+                    <Route path={'/store'} exact component={Store}/>
+                    <ProtectedRoute path={'/profile'} exact component={UserProfile}/>
+                </Switch>
+                <Navbar />
+            </>
         )
     }
 }
 
-const mapStateToProps =(state) => ({
-    token: state.credentialsReducer.token,
-    store: state.credentialsReducer.store
-})
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(App);

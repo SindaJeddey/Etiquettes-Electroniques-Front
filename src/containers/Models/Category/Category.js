@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import classes from './Category.module.css';
-import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import List from "../../List/List";
 
 const API_URL = "https://localhost:8443/api/categories/";
 class Category extends Component{

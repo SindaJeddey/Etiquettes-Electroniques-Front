@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
 import axios from 'axios';
 import ImageUploader from 'react-images-upload';
-import Auxiliary from "../../../hoc/Auxiliary";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -228,7 +227,7 @@ class User extends Component{
                 <div className={classes.title}>{operation} {role}</div>
                 <form className={classes.form}>
                     {operation === "Add" ?
-                    <Auxiliary>
+                    <>
                         <div className={classes.input}>
                             <TextField label={"Name"}
                                        error={this.state.errors.name}
@@ -277,7 +276,7 @@ class User extends Component{
                                            buttonText='Choose image'
                                            singleImage={true}/>
                         </div>
-                    </Auxiliary> :
+                    </> :
                         <div className={classes.input}>
                             <FormControl variant="outlined" fullWidth={true} size={"small"} error={this.state.errors.role} >
                                 <InputLabel>Role</InputLabel>

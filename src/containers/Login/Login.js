@@ -1,96 +1,96 @@
-import React, {Component} from "react";
-import classes from './Login.module.css';
+import React, { useState} from "react";
+import './Login.css';
 import axios from 'axios';
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
-import { withRouter} from "react-router";
+import {Redirect, withRouter} from "react-router";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import SendEmail from "./SendEmail/SendEmail";
 
 const decoder = require('jwt-decode')
 
-const API_URL="https://localhost:8443/login";
-class Login extends Component{
+const Login = (props) => {
 
-    state = {
-        forgotPassword: false
-    }
+    const [forgotPassword, setForgotPassword] = useState(false);
+    const [error, setError] = useState(false);
 
-    onLoginHandler = (event) => {
+    const onLoginHandler = (event) => {
         event.preventDefault();
+
         const credentials = {
-            username: this.props.username,
-            password: this.props.password
+            username: props.username,
+            password: props.password
         }
-        axios.post(API_URL, credentials,{httpsAgent: {
-            rejectUnauthorized: false
-            }})
+
+        axios.post('login', credentials)
             .then(response => {
                 const token = response.headers['authorization'].replace("Bearer ","");
-                const auth = decoder(token).authorities[0].authority.replace("ROLE_","");
-                this.props.onLogin({
-                    username: this.props.username,
-                    password: this.props.password,
-                    token: token,
-                    authority: auth
+                const authority = decoder(token).authorities[0].authority.replace("ROLE_","");
+                props.onLogin({
+                    username: props.username,
+                    authority: authority
                 });
-                this.props.history.push('/dash')
+                localStorage.setItem('jwt',token);
+                props.history.push('/store')
             })
             .catch(error => {
                 console.log(error);
-                this.setState({error: true})
+                setError(true);
             });
     }
 
-    onModalClose = () => {
-        this.setState({forgotPassword: false},() => console.log(this.state.forgotPassword))
+    const offForgotPassword = () => setForgotPassword(false)
+
+    const onForgotPassword = () => {
+        setError(false);
+        setForgotPassword(true)
     }
 
-    onModalOpen = () => {
-        this.setState({forgotPassword: true},() => console.log(this.state.forgotPassword))
+    if(localStorage.getItem('jwt')){
+        if(localStorage.getItem('store'))
+            return <Redirect to={'/home'}/>
+        else return <Redirect to={'/store'}/>
     }
 
-    render() {
-        return(
-            <div className={classes.container}>
-                <div className={classes.subcontainer}>
-                <h2 className={classes.title}>Log In</h2>
-                    {this.state.error? <div className={classes.error}>* Username or password incorrect</div> : null}
-                <form className={classes.form}>
-                    <div className={classes.input}>
+
+    return(
+            <div className={'container'}>
+                <div className={'sub_container'}>
+                <h2 className={'title'}>Log In</h2>
+                    {error? <div className={'error'}>* Username or password incorrect</div> : null}
+                <form className={'form'}>
+                    <div className={'input'}>
                         <TextField label="Username"
                                    fullWidth={true}
-                                   error={this.state.error}
+                                   error={error}
                                    variant="outlined"
-                                   onChange={(event) => this.props.onChangeUsername(event.target.value)}/>
+                                   onChange={(event) => props.onChangeUsername(event.target.value)}/>
                     </div>
-                    <div className={classes.input}>
+                    <div className={'input'}>
                         <TextField label="Password"
                                    fullWidth={true}
-                                   error={this.state.error}
+                                   error={error}
                                    variant="outlined"
                                    type={"password"}
-                                   onChange={(event) => this.props.onChangePassword(event.target.value)}/>
+                                   onChange={(event) => props.onChangePassword(event.target.value)}/>
                     </div>
-                    <small className={classes.fpw}
-                           onClick={this.onModalOpen}>
+                    <small className={'fpw'}
+                           onClick={onForgotPassword}>
                         Forgot your password?
                     </small>
-
-                    <div className={classes.buttonContainer}>
+                    <div className={'button_container'}>
                        <Button size={"large"}
                                style={{ backgroundColor: "#f57c00", color:"#F1FAEE"}}
                                variant={"contained"}
-                               onClick={event => this.onLoginHandler(event)}>Login</Button>
+                               onClick={event => onLoginHandler(event)}>Login</Button>
                    </div>
                 </form>
                 </div>
-                <SendEmail forgortPassword={this.state.forgotPassword}
-                           onModalClose={this.onModalClose}/>
+                <SendEmail forgotPassword={forgotPassword}
+                           onModalClose={offForgotPassword}/>
             </div>
         )
-    }
 
 }
 
@@ -98,7 +98,6 @@ const mapStateToProps = (state) => (
     {
         username: state.credentialsReducer.username,
         password: state.credentialsReducer.password,
-        token: state.credentialsReducer.token,
         authority: state.credentialsReducer.authority,
         store: state.credentialsReducer.store
     }

@@ -1,4 +1,4 @@
-.subcontainer{
+.sub_container{
     background: #F1FAEE;
     position: absolute;
     width: 35%;
@@ -22,11 +22,11 @@
 }
 
 .form {
-    position: relative;
-    width: 100%;
+position: relative;
+width: 100%;
 }
 
-.buttonContainer{
+.button_container{
     display: flex;
     justify-content: center;
     margin: 15% auto;
@@ -35,7 +35,26 @@
 
 .title{
     margin-top: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-size: 45px;
     text-align: center;
+}
+
+.error{
+    color: #d62828;
+    text-align: center;
+    font-size: 17px;
+}
+.fpw{
+    position: absolute;
+    right: 0;
+    margin: -5% 15%;
+    font-size: small;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.fpw:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.9);
 }
