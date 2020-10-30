@@ -61,12 +61,14 @@ class Login extends Component{
                     <div className={classes.input}>
                         <TextField label="Username"
                                    fullWidth={true}
+                                   error={this.state.error}
                                    variant="outlined"
                                    onChange={(event) => this.props.onChangeUsername(event.target.value)}/>
                     </div>
                     <div className={classes.input}>
                         <TextField label="Password"
                                    fullWidth={true}
+                                   error={this.state.error}
                                    variant="outlined"
                                    type={"password"}
                                    onChange={(event) => this.props.onChangePassword(event.target.value)}/>
