@@ -1,31 +1,29 @@
 import React, {Component} from "react";
 import classes from './Login.module.css';
-import cx from 'classnames';
 import axios from 'axios';
 import * as actionCreators from '../../store/actions/index';
 import {connect} from "react-redux";
-import {Redirect, withRouter} from "react-router";
-import Modal from "../../components/Modal/Modal";
+import { withRouter} from "react-router";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import SendEmail from "./SendEmail/SendEmail";
 
 const decoder = require('jwt-decode')
 
+const API_URL="https://localhost:8443/login";
 class Login extends Component{
 
     state = {
-        forgotPassword: false,
-        email: null,
-        error:false
+        forgotPassword: false
     }
 
-    onClickHandler = (event) => {
+    onLoginHandler = (event) => {
         event.preventDefault();
         const credentials = {
             username: this.props.username,
             password: this.props.password
         }
-        axios.post("https://localhost:8443/login", credentials,{httpsAgent: {
+        axios.post(API_URL, credentials,{httpsAgent: {
             rejectUnauthorized: false
             }})
             .then(response => {
@@ -46,29 +44,14 @@ class Login extends Component{
     }
 
     onModalClose = () => {
-        this.setState({forgotPassword: false})
+        this.setState({forgotPassword: false},() => console.log(this.state.forgotPassword))
     }
 
     onModalOpen = () => {
-        this.setState({forgotPassword: true})
-    }
-
-    onEmailChange = (email) => {
-        this.setState({email: email})
-    }
-
-    onEmailSend = () => {
-        axios.post("https://localhost:8443/api/password/token", {email: this.props.emailAddress})
-            .then(response => {
-                this.props.onSetToken(response.data.token);
-                this.setState({resetEmailSent: true});
-            })
-            .catch(error => console.log(error))
+        this.setState({forgotPassword: true},() => console.log(this.state.forgotPassword))
     }
 
     render() {
-        if(!this.props.store)
-            return <Redirect to={'/'}/>
         return(
             <div className={classes.container}>
                 <div className={classes.subcontainer}>
@@ -92,23 +75,17 @@ class Login extends Component{
                            onClick={this.onModalOpen}>
                         Forgot your password?
                     </small>
-                    <Modal open={this.state.forgotPassword}
-                           title={"Password Reset"}
-                           email={true}
-                           successMessage={"An email with password reset link has been sent to the given email address."}
-                           onClose={this.onModalClose}
-                           onSetEmail={this.onEmailChange}
-                           subscribe={true}
-                           onEmailSend={this.onEmailSend}/>
+
                     <div className={classes.buttonContainer}>
-                       <Button size={"large"} style={{
-                           backgroundColor: "#f57c00", color:"#F1FAEE"
-                       }}
+                       <Button size={"large"}
+                               style={{ backgroundColor: "#f57c00", color:"#F1FAEE"}}
                                variant={"contained"}
-                               onClick={event => this.onClickHandler(event)}>Login</Button>
+                               onClick={event => this.onLoginHandler(event)}>Login</Button>
                    </div>
                 </form>
                 </div>
+                <SendEmail forgortPassword={this.state.forgotPassword}
+                           onModalClose={this.onModalClose}/>
             </div>
         )
     }

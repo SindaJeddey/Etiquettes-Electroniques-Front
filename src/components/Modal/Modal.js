@@ -8,6 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import classes from './Modal.modules.css';
 
+
 class Modal extends Component {
 
     state = {
@@ -40,18 +41,21 @@ class Modal extends Component {
                         /> : null : null }
                     </DialogContent>
                     <DialogActions>
-                        <Button style={{
-                            backgroundColor: "#f57c00", color:"#F1FAEE"
-                        }} onClick={this.props.onClose} color="primary">
+                        <Button style={{backgroundColor: "#f57c00", color:"#F1FAEE"}}
+                                onClick={this.props.onClose}
+                                color="primary">
                             Dismiss
                         </Button>
                         {this.props.subscribe === true ?
                             this.props.email === true?
-                            this.state.resetEmailSent === false ? <Button style={{
-                                backgroundColor: "#f57c00", color:"#F1FAEE"
-                            }} onClick={this.props.onEmailSend} color="primary">
-                            Subscribe
-                        </Button> : null : <Button onClick={this.props.confirm} color="primary">
+                            this.state.resetEmailSent === false ?
+                                <Button style={{backgroundColor: "#f57c00", color:"#F1FAEE"}}
+                                        onClick={this.props.onEmailSend}
+                                        color="primary">
+                                    Subscribe
+                                </Button>
+                                : null : <Button onClick={this.props.confirm}
+                                                 color="primary">
                                     Confirm
                                 </Button> : null
                         }

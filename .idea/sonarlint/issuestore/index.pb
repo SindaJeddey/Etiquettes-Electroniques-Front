@@ -8,10 +8,6 @@ G
 src/components/index.js,0\c\0c0fd6a370cd10350462b46937e98f903bcb1435
 U
 %src/containers/Login/Login.module.css,d\f\df463fd3970ce3cf347e27056ecd67fa0b4ab3cf
-U
-%src/containers/Panel/Panel.module.css,2\0\2078f7392dab00e3f472f62318cfd2f5ecfcfa35
-M
-src/containers/Panel/Panel.js,4\2\420804ff1b7f59c98bfeecaa5f1f86bc98ea1517
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 A
@@ -22,10 +18,6 @@ M
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 Q
 !src/store/reducers/credentials.js,3\0\30e9183ccea8cbc635a9f300f182819d1acce69b
-O
-src/containers/Choice/Choice.js,1\9\19cebc7d53efa8d9f1cfc543d4e2cb03350d94ce
-Y
-)src/components/ListElement/ListElement.js,0\9\097f9da8f80161a054f6eb2c71ce141597061026
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 K
@@ -35,15 +27,9 @@ L
 D
 src/hoc/Auxiliary.js,d\b\db0afe3540ab613b4248afd96dd3e8369bba5b2e
 Y
-)src/containers/Profile/Profile.module.css,b\0\b02f02ec3921731a81af4cb75cbbcad008a0bd58
-Q
-!src/containers/Profile/Profile.js,8\e\8ee5ff3104fc677c21d78555a13073f5f8c044be
-Y
 )src/components/SideBar/SideBar.module.css,4\5\45dbbe584103311e09c4dfe1f2e41dc75c30eab8
 Q
 !src/components/SideBar/SideBar.js,3\1\313c8ea7647b527b426da472689ac1c96150160e
-P
- src/navigation/ProtectedRoute.js,c\c\cc6e521b94fad112cd1a0f58fb445c9feff4babe
 ]
 -src/containers/PasswordReset/PasswordReset.js,7\c\7c235700da5edea472c27f96c162ea2d719f7b07
 V
@@ -88,3 +74,29 @@ a
 1src/containers/UserProfile/UserProfile.module.css,8\8\8826188a379d49842cdf19243c7f53effc33ebf7
 Y
 )src/containers/UserProfile/UserProfile.js,6\e\6ef85eb90fb10f2a264808f779bd84fe09680481
+T
+$.idea/codeStyles/codeStyleConfig.xml,d\d\dd7b3350c29c49497756c7f32c69a3bed18b1cba
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+S
+#src/containers/List/List.module.css,4\9\494830caa1cf51f7e60e9b54d141396895a126fc
+U
+%src/containers/Promo/Promo.module.css,3\e\3e7dff412b5502bae9bba903494cedad1c32a2b1
+;
+src/App.css,a\a\aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
+[
++src/containers/ChooseStore/Store.module.css,f\8\f8da8cb80065afe179cb56a85ba4520161ee85bf
+d
+4src/containers/Transactions/Transacations.module.css,3\a\3ac3307247c316c2443b5729a3b4e42d6e054995
+W
+'src/containers/AddToStore/AddToStore.js,3\e\3e6005a4839a6b0a482db70f4bfca42cdf9ed815
+\
+,src/containers/Transaction/AddTransaction.js,1\6\16a36e8b7904864277a99dad5f6083c66bf67547
+A
+public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
+M
+src/containers/Promo/Promo.js,1\8\1858aae43f06c7dac27d465e9892fe77aa7ba0a4
+Y
+)src/components/SideBar/SubMenu.module.css,a\b\ab4b3a5e53078b6a03f5c989c1dd398eba1005df
+[
++src/containers/Transactions/Transactions.js,3\d\3dc605a9c3c53b86577bf346c7735ab93bd93976

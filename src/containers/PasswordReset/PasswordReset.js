@@ -15,7 +15,8 @@ class PasswordReset extends Component {
         password: null,
         passwordConfirmation: null,
         response: false,
-        error:false
+        error:false,
+        sent:false
     }
 
     componentDidMount() {
@@ -44,7 +45,7 @@ class PasswordReset extends Component {
                 newPassword: this.state.password,
                 token: this.props.token
             }
-            axios.post("https://localhost:8443/api/password/reset", newPasswordDto)
+            axios.put("https://localhost:8443/api/password/reset", newPasswordDto)
                 .then(response => {
                     if(response.data === "SAVED")
                         this.setState({response: true})
