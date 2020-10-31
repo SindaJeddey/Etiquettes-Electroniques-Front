@@ -1,12 +1,4 @@
-.sub_container{
-    background: #F1FAEE;
-    position: absolute;
-    width: 35%;
-    height: 70%;
-    border-radius: 6px;
-}
-
-.container{
+.choose_store_container{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,24 +8,32 @@
     width: 100%;
 }
 
-.input{
+.choose_store_sub_container{
+    background: #F1FAEE;
+    position: absolute;
+    width: 35%;
+    height: 70%;
+    border-radius: 6px;
+}
+
+.choose_store_input{
     margin: 7% auto;
     width: 70%;
 }
 
-.form {
+.choose_store_form {
     position: relative;
     width: 100%;
 }
 
-.button_container{
+.choose_store_button_container{
     display: flex;
     justify-content: center;
     margin: 15% auto;
 }
 
 
-.title{
+.choose_store_title{
     margin-top: 10%;
     margin-bottom: 10%;
     font-size: 45px;

@@ -1,4 +1,14 @@
-.sub_container{
+.login_container{
+    background: #343a40;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height:100%;
+    width: 100%;
+}
+
+.login_sub_container{
     background: #F1FAEE;
     position: absolute;
     width: 35%;
@@ -6,46 +16,36 @@
     border-radius: 6px;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #343a40;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-.input{
+.login_input{
     margin: 7% auto;
     width: 70%;
 }
 
-.form {
-position: relative;
-width: 100%;
+.login_form {
+    position: relative;
+    width: 100%;
 }
 
-.button_container{
+.login_button_container{
     display: flex;
     justify-content: center;
     margin: 15% auto;
 }
 
 
-.title{
+.login_title{
     margin-top: 10%;
     margin-bottom: 5%;
     font-size: 45px;
     text-align: center;
 }
 
-.error{
+.login_error{
     color: #d62828;
     text-align: center;
     font-size: 17px;
 }
-.fpw{
+.login_fpw{
     position: absolute;
     right: 0;
     margin: -5% 15%;
@@ -54,7 +54,7 @@ width: 100%;
     color: rgba(0, 0, 0, 0.7);
 }
 
-.fpw:hover{
+.login_fpw:hover{
     cursor: pointer;
     color: rgba(0, 0, 0, 0.9);
 }

@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import './Login.css';
 import axios from 'axios';
-import * as actionCreators from '../../store/actions/index';
+import * as actionCreators from '../../../store/actions';
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router";
 import TextField from "@material-ui/core/TextField";
@@ -55,19 +55,19 @@ const Login = (props) => {
 
 
     return(
-            <div className={'container'}>
-                <div className={'sub_container'}>
-                <h2 className={'title'}>Log In</h2>
-                    {error? <div className={'error'}>* Username or password incorrect</div> : null}
-                <form className={'form'}>
-                    <div className={'input'}>
+            <div className={'login_container'}>
+                <div className={'login_sub_container'}>
+                <h2 className={'login_title'}>Log In</h2>
+                    {error? <div className={'login_error'}>* Username or password incorrect</div> : null}
+                <form className={'login_form'}>
+                    <div className={'login_input'}>
                         <TextField label="Username"
                                    fullWidth={true}
                                    error={error}
                                    variant="outlined"
                                    onChange={(event) => props.onChangeUsername(event.target.value)}/>
                     </div>
-                    <div className={'input'}>
+                    <div className={'login_input'}>
                         <TextField label="Password"
                                    fullWidth={true}
                                    error={error}
@@ -75,11 +75,11 @@ const Login = (props) => {
                                    type={"password"}
                                    onChange={(event) => props.onChangePassword(event.target.value)}/>
                     </div>
-                    <small className={'fpw'}
+                    <small className={'login_fpw'}
                            onClick={onForgotPassword}>
                         Forgot your password?
                     </small>
-                    <div className={'button_container'}>
+                    <div className={'login_button_container'}>
                        <Button size={"large"}
                                style={{ backgroundColor: "#f57c00", color:"#F1FAEE"}}
                                variant={"contained"}

@@ -53,11 +53,11 @@ const Store =(props) => {
         return <Redirect to={'/home'}/>
 
     return(
-            <div className={'container'}>
-                <div className={'sub_container'}>
-                    <h2 className={'title'}>Choose Store</h2>
-                    <form className={'form'}>
-                        <div className={'input'}>
+            <div className={'choose_store_container'}>
+                <div className={'choose_store_sub_container'}>
+                    <h2 className={'choose_store_title'}>Choose Store</h2>
+                    <form className={'choose_store_form'}>
+                        <div className={'choose_store_input'}>
                             {locations ? <FormControl variant="outlined" fullWidth={true}>
                                 <InputLabel>Location</InputLabel>
                                 <Select
@@ -69,7 +69,7 @@ const Store =(props) => {
                                 </Select>
                             </FormControl> : null}
                         </div>
-                        <div className={'input'}>
+                        <div className={'choose_store_input'}>
                             {stores ? <FormControl variant="outlined" fullWidth={true}>
                                 <InputLabel>Store</InputLabel>
                                 <Select
@@ -81,7 +81,7 @@ const Store =(props) => {
                                 </Select>
                             </FormControl> : null}
                         </div>
-                        <div className={'button_container'}>
+                        <div className={'choose_store_button_container'}>
                             <Button size={"large"}
                                     style={{
                                 backgroundColor: "#f57c00", color:"#F1FAEE"

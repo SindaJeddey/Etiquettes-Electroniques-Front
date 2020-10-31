@@ -15,7 +15,7 @@ const Navbar = () => {
     const store = JSON.parse(localStorage.getItem('store'))
     let address = "";
     if(store)
-        address = `${store.name}, ${store.location}, ${store.zipCode}`
+        address = `${store.name},  ${store.location},  ${store.zipCode}`
     return(
         <>
             <div className={'navbar'}>
