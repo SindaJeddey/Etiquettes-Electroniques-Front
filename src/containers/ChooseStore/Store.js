@@ -12,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import * as actionCreators from '../../store/actions/index';
 import {Redirect, withRouter} from "react-router";
+import {emphasize} from "@material-ui/core";
 
 const Store =(props) => {
 
@@ -21,7 +22,6 @@ const Store =(props) => {
     const [store,setStore] = useState(null)
 
     useEffect(() => {
-        console.log("choose store")
         axios.get("/api/stores/locations")
             .then(response => {
                 let locations = [];
@@ -36,19 +36,21 @@ const Store =(props) => {
         setLocation(event.target.value);
         console.log(location)
         axios.get("/api/stores/locations/"+event.target.value)
-            .then(response => setStores(response.data))
+            .then(response => {
+                setStores(response.data)
+            })
             .catch(error => console.log(error))
     }
 
     const onSetStore = (event) => setStore(event.target.value);
 
     const onClickHandler = (event) => {
-        localStorage.setItem('store', JSON.stringify(event.target.value))
+        localStorage.setItem('store', JSON.stringify(store))
         props.history.push('/home')
     }
 
-    if(!localStorage.getItem('jwt'))
-        return <Redirect to={"/login"}/>
+    if(localStorage.getItem('store'))
+        return <Redirect to={'/home'}/>
 
     return(
             <div className={'container'}>
@@ -92,9 +94,7 @@ const Store =(props) => {
                 </div>
             </div>
         )
-
 }
-
 
 
 const mapDispatchToProps = (dispatch) => (

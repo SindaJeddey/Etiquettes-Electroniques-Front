@@ -3,6 +3,8 @@ import './NavBar.css';
 import {Link} from "react-router-dom";
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import CopyrightIcon from '@material-ui/icons/Copyright';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import * as options from "../index";
 
 const Navbar = () => {
@@ -10,15 +12,17 @@ const Navbar = () => {
 
     const toggleSidebar =() => setSidebar(!sidebar)
 
+    const store = JSON.parse(localStorage.getItem('store'))
+    let address = "";
+    if(store)
+        address = `${store.name}, ${store.location}, ${store.zipCode}`
     return(
         <>
             <div className={'navbar'}>
                 <Link to={"#"} className={'menu-bars'}>
                     <MenuIcon onClick={toggleSidebar}/>
                 </Link>
-                <ul>
-                    {}
-                </ul>
+                <h6><LocationOnIcon/>{address}</h6>
             </div>
             <nav className={sidebar? 'nav-menu active': 'nav-menu'}>
                 <ul className={'nav-menu-items'} onClick={toggleSidebar}>
@@ -37,6 +41,9 @@ const Navbar = () => {
                     ))}
                 </ul>
             </nav>
+            <footer>
+                <h8><CopyrightIcon/> EE Copyrights All Reserved</h8>
+            </footer>
         </>
     )
 }
