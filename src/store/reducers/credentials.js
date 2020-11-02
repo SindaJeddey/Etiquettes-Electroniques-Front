@@ -3,7 +3,6 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     username:null,
     password:null,
-    token: null,
     authority: null,
     store:null
 }
@@ -15,7 +14,6 @@ const Reducer = (state = initialState, action) => {
             return{
                 ...state,
                 username: action.username,
-                token: action.token,
                 authority: action.authority
             }
             break;
@@ -23,7 +21,6 @@ const Reducer = (state = initialState, action) => {
         case (actionTypes.LOGOUT):
             return{
                 ...state,
-                token: null,
                 authority: null,
                 username: null
             }

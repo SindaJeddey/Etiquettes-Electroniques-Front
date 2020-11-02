@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import './Login.css';
 import axios from 'axios';
-import * as actionCreators from '../../../store/actions';
+import * as actionCreators from '../../store/actions';
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router";
 import TextField from "@material-ui/core/TextField";
@@ -29,7 +29,7 @@ const Login = (props) => {
                 const authority = decoder(token).authorities[0].authority.replace("ROLE_","");
                 props.onLogin({
                     username: props.username,
-                    authority: authority
+                    authority
                 });
                 localStorage.setItem('jwt',token);
                 props.history.push('/store')

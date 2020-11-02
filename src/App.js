@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import './App.css';
-import Login from "./containers/Authentication/Login/Login";
-import Store from "./containers/ChooseStore/Store";
+import Login from "./Authentication/Login/Login";
+import Store from "./ChooseStore/Store";
 import {Route, Switch, withRouter} from "react-router";
 import UserProfile from "./containers/UserProfile/UserProfile";
 import Navbar from "./components/NavBar/NavBar";
 import ProtectedRoute from "./Navigation/ProtectedRoute";
 import Home from "./Home/Home";
-import Logout from "./containers/Authentication/Logout/Logout";
+import Logout from "./Authentication/Logout/Logout";
 
 
 class App extends Component{

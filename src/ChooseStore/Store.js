@@ -10,7 +10,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
-import * as actionCreators from '../../store/actions/index';
+import * as actionCreators from '../store/actions';
 import {Redirect, withRouter} from "react-router";
 import {emphasize} from "@material-ui/core";
 
