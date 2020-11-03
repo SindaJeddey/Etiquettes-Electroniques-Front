@@ -1,4 +1,4 @@
-.categories_search_container{
+.stores_search_container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,15 +6,15 @@
     margin-top: 3%;
 }
 
-.categories_results{
+.stores_results{
     margin-top: 3%;
 }
 
-.add_category{
+.add_store{
     margin-bottom: 3%;
 }
 
-.category_result{
+.store_result{
     position : relative;
     list-style: none;
     display : inline-block;
@@ -27,13 +27,18 @@
     align-items: center;
 }
 
-.category_result:hover{
+.store_result:hover{
     background: #f57c00;
     color: #F1FAEE;
     cursor: pointer;
 }
 
-.category_code{
+.store_code{
+    text-align: center;
+    font-size: 15px ;
+}
+
+.store_address{
     text-align: center;
     font-size: 15px ;
 }

@@ -8,7 +8,8 @@ import Navbar from "./components/NavBar/NavBar";
 import ProtectedRoute from "./Navigation/ProtectedRoute";
 import Home from "./Home/Home";
 import Logout from "./Authentication/Logout/Logout";
-import Category from "./Categories/Categories";
+import Categories from "./Categories/Categories";
+import Stores from "./containers/Stores/Stores";
 
 
 class App extends Component{
@@ -23,7 +24,8 @@ class App extends Component{
                     <Route path={'/store'} exact component={Store}/>
                     <ProtectedRoute path={'/logout'} exact component={Logout}/>
                     <ProtectedRoute path={'/profile'} exact component={UserProfile}/>
-                    <ProtectedRoute path={'/categories'} component={Category}/>
+                    <ProtectedRoute path={'/stores'} component={Stores}/>
+                    <ProtectedRoute path={'/categories'} component={Categories}/>
                     <ProtectedRoute path={['/','/home']} exact component={Home}/>
                 </Switch>
             </>

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import '../Categories.css'
 import {withRouter} from "react-router";
-import CategoryForm from "../CategoyForm";
+import CategoryForm from "./CategoryForm";
 
 const Category = (props) => {
     const {code,name} = props;
@@ -20,10 +20,10 @@ const Category = (props) => {
 
     return(
         <>
-            <li onClick={() => onOpen()} className={'result'}>
+            <li onClick={() => onOpen()} className={'category_result'}>
                 {name}
                 <br/>
-                <span className={'code'}>{code}</span>
+                <span className={'category_code'}>{code}</span>
             </li>
             <CategoryForm open={open} close={close} name={name} code={code} operation={"Update"}/>
         </>

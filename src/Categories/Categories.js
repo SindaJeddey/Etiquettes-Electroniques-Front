@@ -8,7 +8,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from '@material-ui/icons/Search';
 import Button from "@material-ui/core/Button";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import CategoryForm from "./CategoyForm";
+import CategoryForm from "./Category/CategoryForm";
 
 const Categories = (props) => {
     const [categories, setCategories]= useState(null);
@@ -32,7 +32,7 @@ const Categories = (props) => {
     }
 
     return(
-        <div className={'search_container'}>
+        <div className={'categories_search_container'}>
             <div className={'add_category'}>
                 <Button
                     style={{
@@ -45,7 +45,7 @@ const Categories = (props) => {
                     onClick={onOpen}>New Category</Button>
                 <CategoryForm operation={"Add"} code={null} name={null} open={add} close={close} categories={categories}/>
             </div>
-            <div className={'search-field'}>
+            <div>
                 <TextField
                     label="Search Category"
                     value={search}
@@ -62,7 +62,7 @@ const Categories = (props) => {
                     }}
                 />
             </div>
-            <div className={'results'}>
+            <div className={'categories_results'}>
                 <ul>
                     {categories ?
                         categories.filter(category => {

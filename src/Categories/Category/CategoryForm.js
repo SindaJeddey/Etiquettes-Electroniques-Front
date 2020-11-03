@@ -9,6 +9,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 
 const CategoryForm = (props) => {
+    const API_URL = 'api/categories/'
     const {code,name,open,close,operation, categories} = props;
 
     const { register, handleSubmit, errors, getValues, trigger, reset} = useForm({
@@ -30,14 +31,14 @@ const CategoryForm = (props) => {
             }
             if(operation==="Update"){
                 category.categoryCode = code;
-                axios.put(`api/categories/${code}`,category)
+                axios.put(`${API_URL}${code}`,category)
                     .then(response => {
                         close();
                     })
                     .catch(error => console.log(error))
 
             } else {
-                axios.post(`api/categories/`,category)
+                axios.post(`${API_URL}`,category)
                     .then(response => {
                         close();
                     })
