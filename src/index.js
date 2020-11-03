@@ -6,9 +6,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import {combineReducers, createStore} from "redux";
-import CredentialsReducer from './store/reducers/credentials';
-import ChoiceReducer from './store/reducers/choice';
-import PasswordReducer from './store/reducers/passwordResetter';
+import CredentialsReducer from './ReduxStore/reducers/credentials';
+import ChoiceReducer from './ReduxStore/reducers/choice';
+import PasswordReducer from './ReduxStore/reducers/passwordResetter';
 import {BrowserRouter} from "react-router-dom";
 import axios from 'axios';
 

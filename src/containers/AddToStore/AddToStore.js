@@ -98,7 +98,7 @@ class AddToStore extends Component{
                                     type={"number"}
                                     size={"small"}
                                     onChange={(event) => this.handleChange(event)}
-                                    variant="outlined"/>:"Product already exists in the current store"}
+                                    variant="outlined"/>:"Product already exists in the current ReduxStore"}
                     </div>
                 </DialogContent>
                 <DialogActions>

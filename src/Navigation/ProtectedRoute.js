@@ -8,7 +8,7 @@ const ProtectedRoute = ({component:Component , ...rest}) => {
     else {
         if(!localStorage.getItem('store')) {
             console.log("store")
-            return <Redirect to={"/store"}/>
+            return <Redirect to={"/ReduxStore"}/>
         }
     }
     return(

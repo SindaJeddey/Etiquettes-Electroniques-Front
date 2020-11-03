@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import './Login.css';
 import axios from 'axios';
-import * as actionCreators from '../../store/actions';
+import * as actionCreators from '../../ReduxStore/actions';
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router";
 import TextField from "@material-ui/core/TextField";
@@ -32,7 +32,7 @@ const Login = (props) => {
                     authority
                 });
                 localStorage.setItem('jwt',token);
-                props.history.push('/store')
+                props.history.push('/ReduxStore')
             })
             .catch(error => {
                 console.log(error);
@@ -50,7 +50,7 @@ const Login = (props) => {
     if(localStorage.getItem('jwt')){
         if(localStorage.getItem('store'))
             return <Redirect to={'/home'}/>
-        else return <Redirect to={'/store'}/>
+        else return <Redirect to={'/ReduxStore'}/>
     }
 
 

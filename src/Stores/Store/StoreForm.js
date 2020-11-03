@@ -7,6 +7,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import SaveIcon from "@material-ui/icons/Save";
+import CloseIcon from "@material-ui/icons/Close";
 
 const StoreForm = (props) => {
     const API_URL = '/api/stores/';
@@ -53,6 +55,12 @@ const StoreForm = (props) => {
         }
     }
 
+    const onDelete = () => {
+        axios.delete(`${API_URL}${store.storeCode}`)
+            .then(response => close())
+            .catch(error => console.log(error))
+    }
+
     return(
         <Dialog open={open} onClose={close}>
             <DialogTitle style={{ color: "#f57c00" , fontWeight:"bold"}}>{operation} Category</DialogTitle>
@@ -97,10 +105,32 @@ const StoreForm = (props) => {
                 </form>
             </DialogContent>
             <DialogActions>
-                <Button onClick={close} style={{ color: "#f57c00" }}>
+                {operation === "Update" && store.storeCode !== JSON.parse(localStorage.getItem('store')).storeCode ?
+                    <Button variant={"contained"}
+                                                  startIcon={<SaveIcon/>}
+                                                  style={{
+                                                      backgroundColor: "#d62828", color: "#F1FAEE", borderRadius: "4px"
+                                                  }}
+                                                  type={"submit"}
+                                                  onClick={onDelete}>
+                    Delete
+                </Button> : null}
+                <Button variant={"contained"}
+                        startIcon={<CloseIcon/>}
+                        style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE", borderRadius:"4px"
+                        }}
+                        type={"submit"}
+                        onClick={close}>
                     Cancel
                 </Button>
-                <Button style={{ color: "#f57c00" }} type={"submit"} onClick={onSubmit}>
+                <Button variant={"contained"}
+                        startIcon={<SaveIcon/>}
+                        style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE", borderRadius:"4px"
+                        }}
+                        type={"submit"}
+                        onClick={onSubmit}>
                     Save
                 </Button>
             </DialogActions>

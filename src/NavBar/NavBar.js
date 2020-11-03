@@ -5,7 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import * as options from "../index";
+import * as options from "./index";
 
 const Navbar = () => {
     const [sidebar, setSidebar] = useState(false)

@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import SaveIcon from '@material-ui/icons/Save';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CategoryForm = (props) => {
     const API_URL = 'api/categories/'
@@ -45,7 +47,12 @@ const CategoryForm = (props) => {
                     .catch(error => console.log(error))
             }
         }
+    }
 
+    const onDelete = () => {
+        axios.delete(`${API_URL}${code}`)
+            .then(response => close())
+            .catch(error => console.log(error))
     }
 
     const validate = (value) => {
@@ -61,7 +68,7 @@ const CategoryForm = (props) => {
     }
 
     return(
-        <Dialog open={open} onClose={close}>
+        <Dialog open={open} onClose={close} fullWidth={true}>
             <DialogTitle style={{ color: "#f57c00" , fontWeight:"bold"}}>{operation} Category</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit(() => onSubmit())}>
@@ -81,10 +88,31 @@ const CategoryForm = (props) => {
                 </form>
             </DialogContent>
             <DialogActions>
-                <Button onClick={close} style={{ color: "#f57c00" }}>
+                {operation === "Update" ? <Button variant={"contained"}
+                         startIcon={<SaveIcon/>}
+                         style={{
+                             backgroundColor: "#d62828", color: "#F1FAEE", borderRadius: "4px"
+                         }}
+                         type={"submit"}
+                         onClick={onDelete}>
+                    Delete
+                </Button> : null}
+                <Button variant={"contained"}
+                        startIcon={<CloseIcon/>}
+                        style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE", borderRadius:"4px"
+                        }}
+                        type={"submit"}
+                        onClick={close}>
                     Cancel
                 </Button>
-                <Button style={{ color: "#f57c00" }} type={"submit"} onClick={onSubmit}>
+                <Button variant={"contained"}
+                        startIcon={<SaveIcon/>}
+                        style={{
+                            backgroundColor: "#f57c00", color:"#F1FAEE", borderRadius:"4px"
+                        }}
+                        type={"submit"}
+                        onClick={onSubmit}>
                     Save
                 </Button>
             </DialogActions>
