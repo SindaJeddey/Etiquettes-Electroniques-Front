@@ -48,4 +48,9 @@ const Navbar = () => {
     )
 }
 
+const mapStateToProps = (state) => ({
+    authority: state.credentialsReducer.authority
+})
+
+
 export default Navbar;

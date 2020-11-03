@@ -71,9 +71,9 @@ class Category extends Component{
         if (value=== "" || value=== " ")
             errors.name =  "* Must provide a category name"
         else if (value[0] === " ")
-            errors.name = "* Category name should start with a letter"
+            errors.name = "* Categories name should start with a letter"
         else if(this.state.names.includes(value))
-            errors.name="* Category name already exists"
+            errors.name="* Categories name already exists"
         else
             errors.name = "";
         this.setState({errors: errors, name:value})
@@ -99,7 +99,7 @@ class Category extends Component{
                 <div className={classes.title}>{this.props.operation} Category</div>
                 <form className={classes.form}>
                     <div className={classes.input}>
-                        <TextField label={"Category Name"}
+                        <TextField label={"Categories Name"}
                                    error={this.state.errors.name}
                                    helperText={this.state.errors.name}
                                    name={"name"}

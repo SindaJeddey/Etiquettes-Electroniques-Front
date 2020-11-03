@@ -67,7 +67,7 @@ class List extends Component {
                     .catch(error => console.log(error))
                 break;
             case "categories":
-                columns=['#','Category','Delete Category'];
+                columns=['#','Categories','Delete Categories'];
                 axios.get(API+"categories",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((cat,index)=>{
@@ -78,7 +78,7 @@ class List extends Component {
                     .catch(error => console.log(error))
                 break;
             case "products":
-                columns=['#','Product','Category','Delete Product','Add To Store','Promo'];
+                columns=['#','Product','Categories','Delete Product','Add To Store','Promo'];
                 axios.get(API+"products",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.forEach((product,index) =>{
@@ -93,7 +93,7 @@ class List extends Component {
                     })
                 break;
             case "stores":
-                columns=['#','Product','Category','Delete From Store','Add To Store'];
+                columns=['#','Product','Categories','Delete From Store','Add To Store'];
                 axios.get(API+"stores/"+this.props.store+"/products",{headers:{'Authorization': this.props.token}})
                     .then(response => {
                         response.data.inStoreProducts.forEach((product,index) =>{

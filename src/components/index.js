@@ -69,7 +69,7 @@ export const ADMIN = [
                     path:'/categories?operation=browse'
                 },
                 {
-                    title: 'Add Category',
+                    title: 'Add Categories',
                     icon: <AddCircleOutlineIcon/>,
                     path:'/categories?operation=add'
                 }
@@ -149,7 +149,7 @@ export const OPERATOR = [
                 path:'/categories?operation=browse'
             },
             {
-                title: 'Add Category',
+                title: 'Add Categories',
                 icon: <AddCircleOutlineIcon/>,
                 path:'/categories?operation=add'
             }
