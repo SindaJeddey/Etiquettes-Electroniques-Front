@@ -39,7 +39,7 @@ const CategoryForm = (props) => {
                     })
                     .catch(error => console.log(error))
 
-            } else {
+            } else if(operation ==="Add"){
                 axios.post(`${API_URL}`,category)
                     .then(response => {
                         close();
@@ -74,6 +74,7 @@ const CategoryForm = (props) => {
                 <form onSubmit={handleSubmit(() => onSubmit())}>
                     <TextField label="Category Name:"
                                name={"categoryName"}
+                               variant="outlined"
                                fullWidth
                                error={!!errors.categoryName}
                                helperText={errors.categoryName ? errors.categoryName.message : ''}

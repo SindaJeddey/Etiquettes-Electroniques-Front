@@ -32,7 +32,7 @@ const Login = (props) => {
                     authority
                 });
                 localStorage.setItem('jwt',token);
-                props.history.push('/ReduxStore')
+                props.history.push('/store')
             })
             .catch(error => {
                 console.log(error);
@@ -50,7 +50,7 @@ const Login = (props) => {
     if(localStorage.getItem('jwt')){
         if(localStorage.getItem('store'))
             return <Redirect to={'/home'}/>
-        else return <Redirect to={'/ReduxStore'}/>
+        else return <Redirect to={'/store'}/>
     }
 
 

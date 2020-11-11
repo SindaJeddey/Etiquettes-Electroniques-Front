@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import classes from "../Promo/Promo.module.css";
+import classes from "../Models/Promo/Promo.module.css";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import axios from 'axios'

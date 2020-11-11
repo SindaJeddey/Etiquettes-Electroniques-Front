@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import classes from "../List/List.module.css";
+import classes from "../../List/List.module.css";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";

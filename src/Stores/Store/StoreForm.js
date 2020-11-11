@@ -39,12 +39,10 @@ const StoreForm = (props) => {
             if (operation === "Update") {
                 data.storeCode = store.storeCode;
                 axios.put(`${API_URL}${store.storeCode}`, data)
-                    .then(response => {
-                        close();
-                    })
+                    .then(response => close())
                     .catch(error => console.log(error))
 
-            } else {
+            } else if(operation ==="Add"){
                 console.log(data)
                 axios.post(`${API_URL}`, data)
                     .then(response => {
@@ -63,12 +61,14 @@ const StoreForm = (props) => {
 
     return(
         <Dialog open={open} onClose={close}>
-            <DialogTitle style={{ color: "#f57c00" , fontWeight:"bold"}}>{operation} Category</DialogTitle>
+            <DialogTitle style={{ color: "#f57c00" , fontWeight:"bold"}}>{operation} Store</DialogTitle>
             <DialogContent>
                 <form onSubmit={handleSubmit(() => onSubmit())}>
                     <TextField label="Store Name:"
                                name={"name"}
                                fullWidth
+                               style={{margin:"1%"}}
+                               variant="outlined"
                                error={!!errors.name}
                                helperText={errors.name ? errors.name.message : ''}
                                inputRef={register({
@@ -81,6 +81,8 @@ const StoreForm = (props) => {
                     <TextField label="Location:"
                                name={"location"}
                                fullWidth
+                               style={{margin:"1%"}}
+                               variant="outlined"
                                error={!!errors.location}
                                helperText={errors.location ? errors.location.message : ''}
                                inputRef={register({
@@ -93,6 +95,8 @@ const StoreForm = (props) => {
                     <TextField label="Zip Code:"
                                name={"zipCode"}
                                fullWidth
+                               style={{margin:"1%"}}
+                               variant="outlined"
                                error={!!errors.zipCode}
                                helperText={errors.zipCode ? errors.zipCode.message : ''}
                                inputRef={register({

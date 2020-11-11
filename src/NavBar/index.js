@@ -43,18 +43,18 @@ export const ADMIN = [
             ]
         },{
             title:'Super-Operators',
-            path:'/super_operators',
+            path:'/super-operators',
             icon: <PersonIcon />,
             navBar: [
                 {
                     title: 'Browse Super-Operators',
                     icon: <SearchIcon/>,
-                    path:'/super_operators?operation=browse'
+                    path:'/super-operators?operation=browse'
                 },
                 {
                     title: 'Add Super-Operator',
                     icon: <PersonAddIcon/>,
-                    path:'/super_operators?operation=add'
+                    path:'/super-operators?operation=add'
                 }
             ]
         },

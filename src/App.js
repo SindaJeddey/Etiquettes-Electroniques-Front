@@ -10,6 +10,7 @@ import Home from "./Home/Home";
 import Logout from "./Authentication/Logout/Logout";
 import Categories from "./Categories/Categories";
 import Stores from "./Stores/Stores";
+import Users from "./containers/Users/Users";
 
 
 class App extends Component{
@@ -21,10 +22,12 @@ class App extends Component{
                 {!localStorage.getItem('store') || !localStorage.getItem('jwt') ? null : <Navbar/>}
                 <Switch>
                     <Route path={'/login'} exact component={Login}/>
-                    <Route path={'/ReduxStore'} exact component={Store}/>
+                    <Route path={'/store'} exact component={Store}/>
                     <ProtectedRoute path={'/logout'} exact component={Logout}/>
                     <ProtectedRoute path={'/profile'} exact component={UserProfile}/>
                     <ProtectedRoute path={'/stores'} component={Stores}/>
+                    <ProtectedRoute path={'/operators'} component={Users}/>
+                    <ProtectedRoute path={'/super-operators'} component={Users}/>
                     <ProtectedRoute path={'/categories'} component={Categories}/>
                     <ProtectedRoute path={['/','/home']} exact component={Home}/>
                 </Switch>
