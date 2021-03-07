@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./Store.css";
 import Button from "@material-ui/core/Button";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -12,7 +12,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {connect} from "react-redux";
 import * as actionCreators from '../ReduxStore/actions';
 import {Redirect, withRouter} from "react-router";
-import {emphasize} from "@material-ui/core";
 
 const Store =(props) => {
 

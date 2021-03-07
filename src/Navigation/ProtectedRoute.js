@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {Redirect, Route} from "react-router";
 
 const ProtectedRoute = ({component:Component , ...rest}) => {
@@ -7,7 +7,6 @@ const ProtectedRoute = ({component:Component , ...rest}) => {
     }
     else {
         if(!localStorage.getItem('store')) {
-            console.log("store")
             return <Redirect to={"/ReduxStore"}/>
         }
     }

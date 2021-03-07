@@ -11,6 +11,9 @@ import ChoiceReducer from './ReduxStore/reducers/choice';
 import PasswordReducer from './ReduxStore/reducers/passwordResetter';
 import {BrowserRouter} from "react-router-dom";
 import axios from 'axios';
+import {persistReducer, persistStore} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import {PersistGate} from "redux-persist/integration/react"
 
 axios.defaults.baseURL="https://localhost:8443/";
 if(localStorage.getItem('jwt') !== null)
@@ -22,13 +25,24 @@ const rootReducer = combineReducers({
     credentialsReducer: CredentialsReducer,
     choiceReducer: ChoiceReducer,
     passwordReducer: PasswordReducer});
-const store = createStore(rootReducer);
+
+const persistConfig =  {
+    key: 'root',
+    storage,
+    whitelist: ['credentialsReducer']
+}
+
+const store = createStore(persistReducer(persistConfig,rootReducer));
+
+const persistor = persistStore(store);
 
 ReactDOM.render(
   <React.StrictMode>
       <BrowserRouter>
           <Provider store={store}>
-              <App />
+              <PersistGate persistor={persistor}>
+                  <App />
+              </PersistGate>
           </Provider>
       </BrowserRouter>
   </React.StrictMode>,

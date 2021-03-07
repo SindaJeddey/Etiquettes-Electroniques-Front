@@ -3,9 +3,6 @@
     height: 80px;
     display: flex;
     align-items: center;
-}
-
-h6{
     color: #F1FAEE;
 }
 
@@ -19,6 +16,30 @@ h6{
 
 .menu-bars :hover{
     color: #F1FAEE;
+}
+
+.products_choice{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.products{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 40px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+
+.products:hover{
+    cursor: pointer;
+    background: #f57c00;
 }
 
 

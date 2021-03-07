@@ -31,7 +31,7 @@ const Users = (props) =>{
 
     const onOpen = () => {
         setAdd(true)
-        props.history.push(`/${role}?add`)
+        props.history.push(`/${role}?operation=add`)
     }
     const close = () => {
         setAdd(false);

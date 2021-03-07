@@ -86,7 +86,7 @@ export const ADMIN = [
                     path:'/products?operation=browse'
                 },
                 {
-                    title: 'Add Product',
+                    title: 'Add Products',
                     icon: <AddCircleOutlineIcon/>,
                     path:'/products?operation=add'
                 }
@@ -166,7 +166,7 @@ export const OPERATOR = [
                 path:'/products?operation=browse'
             },
             {
-                title: 'Add Product',
+                title: 'Add Products',
                 icon: <AddCircleOutlineIcon/>,
                 path:'/products?operation=add'
             }
@@ -229,7 +229,7 @@ export const SUPER_OPERATOR = [
                 path:'/products?operation=browse'
             },
             {
-                title: 'Add Product',
+                title: 'Add Products',
                 icon: <AddCircleOutlineIcon/>,
                 path:'/products?operation=add'
             }

@@ -13,16 +13,13 @@ const Reducer = (state=initialState, action) => {
                 ...state,
                 emailAddress: action.email
             }
-            break;
         case actionTypes.SET_TOKEN:
             return {
                 ...state,
                 token: action.token
             }
-            break;
         default:
             return state;
-            break;
     }
 }
 

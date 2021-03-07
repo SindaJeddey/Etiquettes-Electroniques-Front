@@ -13,13 +13,11 @@ const Reducer = (state = initialState,action) => {
                 ...state,
                 choice: action.choice
             }
-            break;
         case (actionTypes.SET_ELEMENT):
             return {
                 ...state,
                 elementId: action.elementId
             }
-            break;
         case (actionTypes.SET_ITEMS):
             return {
                 ...state,

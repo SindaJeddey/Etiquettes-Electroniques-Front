@@ -10,7 +10,8 @@ import Home from "./Home/Home";
 import Logout from "./Authentication/Logout/Logout";
 import Categories from "./Categories/Categories";
 import Stores from "./Stores/Stores";
-import Users from "./containers/Users/Users";
+import Users from "./Users/Users";
+import Products from "./containers/Products/Products";
 
 
 class App extends Component{
@@ -25,6 +26,7 @@ class App extends Component{
                     <Route path={'/store'} exact component={Store}/>
                     <ProtectedRoute path={'/logout'} exact component={Logout}/>
                     <ProtectedRoute path={'/profile'} exact component={UserProfile}/>
+                    <ProtectedRoute path={'/products'} component={Products}/>
                     <ProtectedRoute path={'/stores'} component={Stores}/>
                     <ProtectedRoute path={'/operators'} component={Users}/>
                     <ProtectedRoute path={'/super-operators'} component={Users}/>

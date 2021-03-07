@@ -1,5 +1,4 @@
-import React, {useEffect} from "react";
-import axios from 'axios';
+import React from "react";
 
 const Home = () => {
 
@@ -8,6 +7,8 @@ const Home = () => {
     return(
         <>
             <h1>Home Page</h1>
+            Below threshold in store products
+            Current Promos
         </>
     )
 }

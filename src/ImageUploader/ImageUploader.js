@@ -10,6 +10,7 @@ const ImageUploader = ({onUpload,multiple}) => {
         fileReader.readAsArrayBuffer(picture);
         fileReader.onload = () => {
             let bytes = new Uint8Array(fileReader.result)
+            console.log(bytes)
         }
     }
 

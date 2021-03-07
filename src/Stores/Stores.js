@@ -24,7 +24,7 @@ const Stores = (props) => {
 
     const onOpen = () => {
         setAdd(true)
-        props.history.push('/stores?add')
+        props.history.push('/stores?operation=add')
     }
 
     const close = () => {
@@ -77,6 +77,7 @@ const Stores = (props) => {
                                 return store
                             if(store.zipCode.replace(/\s+/g, '').toLowerCase().includes(search.replace(/\s+/g, '').toLowerCase()))
                                 return store
+                            return store
                         })
                             .map((store,i) => <Store key={i} store={store}/>)
                         : null}

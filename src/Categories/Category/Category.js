@@ -9,7 +9,7 @@ const Category = (props) => {
     const [open,setOpen] = useState(false)
 
     const onOpen = () => {
-        props.history.push('/categories?update')
+        props.history.push('/categories?operation=update')
         setOpen(true)
     }
 

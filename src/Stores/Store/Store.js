@@ -9,7 +9,7 @@ const Store = (props) => {
     const [open,setOpen] = useState(false)
 
     const onOpen = () => {
-        props.history.push('/stores?update')
+        props.history.push('/stores?operation=update')
         setOpen(true)
     }
 

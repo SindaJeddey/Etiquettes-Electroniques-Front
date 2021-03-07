@@ -23,7 +23,7 @@ const Categories = (props) => {
 
     const onOpen = () => {
         setAdd(true)
-        props.history.push('/categories?add')
+        props.history.push('/categories?operation=add')
     }
 
     const close = () => {
@@ -72,6 +72,7 @@ const Categories = (props) => {
                                 return category
                             if(category.categoryCode.toLowerCase().includes(search.toLowerCase()))
                                 return category
+                            return category
                         })
                                   .map((category,i) => <Category key={i} code={category.categoryCode} name={category.name}/>)
                         : null}

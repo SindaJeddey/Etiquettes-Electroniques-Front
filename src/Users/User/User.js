@@ -11,7 +11,7 @@ const User =(props) => {
     const uri = props.location.pathname.replace('/','')
 
     const onOpen = () => {
-        props.history.push(`/${uri}?update`)
+        props.history.push(`/${uri}?operation=update`)
         setOpen(true)
     }
 
@@ -25,7 +25,7 @@ const User =(props) => {
             <li className={'user_result'} onClick={() => onOpen()}>
                 <div className={'user_container'}>
                     <div className={'image_container'}>
-                        <img  className={'user_result_image'} src={`data:image/png;base64,${img}`} width={57} height={57}/>
+                        <img className={'user_result_image'} src={`data:image/png;base64,${img}`} width={57} height={57} alt={"User image"}/>
                     </div>
                     <div>
                         {username}

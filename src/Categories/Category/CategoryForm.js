@@ -22,7 +22,7 @@ const CategoryForm = (props) => {
 
     useEffect(() => {
         reset({categoryName: name})
-    },[name])
+    },[name, reset])
 
 
     const onSubmit = async () => {
