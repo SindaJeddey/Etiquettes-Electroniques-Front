@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import classes from './PasswordReset.module.css';
 import Button from "@material-ui/core/Button";
-import * as actionCreators from '../../ReduxStore/actions/index';
+import * as actionCreators from '../ReduxStore/actions';
 import axios from 'axios';
 import Modal from "../../components/Modal/Modal";
 

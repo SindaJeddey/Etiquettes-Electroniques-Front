@@ -28,69 +28,21 @@ export const ADMIN = [
         {
             title:'Operators',
             path:'/operators',
-            icon: <PersonIcon />,
-            navBar: [
-                {
-                    title: 'Browse Operators',
-                    icon: <SearchIcon/>,
-                    path:'/operators?operation=browse'
-                },
-                {
-                    title: 'Add Operator',
-                    icon: <PersonAddIcon/>,
-                    path: '/operators?operation=add'
-                }
-            ]
+            icon: <PersonIcon />
         },{
             title:'Super-Operators',
             path:'/super-operators',
-            icon: <PersonIcon />,
-            navBar: [
-                {
-                    title: 'Browse Super-Operators',
-                    icon: <SearchIcon/>,
-                    path:'/super-operators?operation=browse'
-                },
-                {
-                    title: 'Add Super-Operator',
-                    icon: <PersonAddIcon/>,
-                    path:'/super-operators?operation=add'
-                }
-            ]
+            icon: <PersonIcon />
         },
         {
             title:'Categories',
             path:'/categories',
-            icon: <CategoryIcon />,
-            navBar: [
-                {
-                    title: 'Browse Categories',
-                    icon: <SearchIcon/>,
-                    path:'/categories?operation=browse'
-                },
-                {
-                    title: 'Add Categories',
-                    icon: <AddCircleOutlineIcon/>,
-                    path:'/categories?operation=add'
-                }
-            ]
+            icon: <CategoryIcon />
         },
         {
             title:'Products',
-            path:'/products',
-            icon: <ShoppingCartIcon />,
-            navBar: [
-                {
-                    title: 'Browse Products',
-                    icon: <SearchIcon/>,
-                    path:'/products?operation=browse'
-                },
-                {
-                    title: 'Add Products',
-                    icon: <AddCircleOutlineIcon/>,
-                    path:'/products?operation=add'
-                }
-            ]
+            path:'/products?products=all',
+            icon: <ShoppingCartIcon />
         },
         {
             title:'Stores',

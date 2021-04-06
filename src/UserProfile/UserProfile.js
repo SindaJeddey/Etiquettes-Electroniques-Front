@@ -23,10 +23,10 @@ const UserProfile =(props) => {
     useEffect(() => {
         axios.get(`api/${authority}/${username}`)
             .then(response => {
-                setValue("firstName",response.data.name)
+                setValue("firstName",response.data.firstName)
                 setValue("lastName",response.data.lastName)
                 setValue("email",response.data.email)
-                setValue("birthday",response.data.birthday)
+                setValue("birthday",new Date(response.data.birthday))
                 setImage(response.data.image);
             })
             .catch(error => console.log(error))
@@ -36,7 +36,7 @@ const UserProfile =(props) => {
         const validity = await trigger();
         if(validity)
             axios.put(`api/${authority}/${username}`, getValues())
-                .then(response => props.history.push('/dash'))
+                .then(response => props.history.push('/'))
                 .catch(error => console.log(error))
     }
 

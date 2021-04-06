@@ -176,8 +176,6 @@ const UserForm = (props) => {
                                             name={"role"}
                                             defaultValue={user.role}
                                             control={control}/>
-
-
                             </FormControl>
                           </>
                     }

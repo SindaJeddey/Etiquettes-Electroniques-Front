@@ -22,7 +22,6 @@ const Navbar = (props) => {
                 </Link>
                 {props.location.pathname.includes("/products") ?
                     <div className={"products_choice"}>
-                        <div className={"products"} onClick={() => props.history.push("/products?products=all")}> All Products </div>
                         <div className={"products"} onClick={() => props.history.push("/products?products=inStore")}> In Store Products </div>
                     </div>
                     : null}

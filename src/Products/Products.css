@@ -10,6 +10,10 @@
     margin-bottom: 3%;
 }
 
+.products_results {
+    width: 50%;
+}
+
 
 .search_container{
     display: flex;

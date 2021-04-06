@@ -11,7 +11,8 @@ import Logout from "./Authentication/Logout/Logout";
 import Categories from "./Categories/Categories";
 import Stores from "./Stores/Stores";
 import Users from "./Users/Users";
-import Products from "./containers/Products/Products";
+import Products from "./Products/Products";
+import Transactions from "./Transactions/Transactions";
 
 
 class App extends Component{
@@ -27,6 +28,7 @@ class App extends Component{
                     <ProtectedRoute path={'/logout'} exact component={Logout}/>
                     <ProtectedRoute path={'/profile'} exact component={UserProfile}/>
                     <ProtectedRoute path={'/products'} component={Products}/>
+                    <ProtectedRoute path={'/transactions'} component={Transactions}/>
                     <ProtectedRoute path={'/stores'} component={Stores}/>
                     <ProtectedRoute path={'/operators'} component={Users}/>
                     <ProtectedRoute path={'/super-operators'} component={Users}/>

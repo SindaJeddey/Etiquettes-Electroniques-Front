@@ -14,6 +14,11 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import CategoryIcon from "@material-ui/icons/Category";
 import Product from "./Product/Product";
+import {TableBody, TableCell} from "@material-ui/core";
+import Table from "@material-ui/core/Table";
+import TableRow from "@material-ui/core/TableRow";
+import TableHead from "@material-ui/core/TableHead";
+import ProductForm from "./Product/ProductForm";
 
 const Products = (props) => {
     const [products, setProducts] = useState(null);
@@ -21,6 +26,8 @@ const Products = (props) => {
     const [category,setCategory] = useState(null);
     const [search,setSearch] = useState(null);
     const params = queryString.parse(props.location.search);
+    const [add, setAdd] = useState(false);
+    const store = JSON.parse(localStorage.getItem('store'));
 
     useEffect(() => {
         axios.get('/api/categories')
@@ -30,9 +37,25 @@ const Products = (props) => {
             axios.get('/api/products')
                 .then(response => setProducts(response.data))
                 .catch(error => console.log(error))
+        } else if (params.products === "inStore"){
+            axios.get(`/api/stores/${store.storeCode}/products`)
+                .then(response => {
+                    let data = [];
+                    response.data.inStoreProducts.forEach(prod => data.push(prod.product))
+                    setProducts(data)
+                })
+                .catch(error => console.log(error))
         }
     },[props.location.search])
 
+    const onOpen = () => {
+        setAdd(true)
+    }
+
+    const close = () => {
+        setAdd(false);
+        props.history.push('/products')
+    }
     return(
         <div className={'products_search_container'}>
             <div className={'add_product'}>
@@ -43,7 +66,9 @@ const Products = (props) => {
                     variant={"contained"}
                     startIcon={<AddCircleOutlineIcon/>}
                     type={"submit"}
-                    size={"large"}>New Product</Button>
+                    size={"large"}
+                    onClick={onOpen}>New Product</Button>
+                <ProductForm open={add} product={null} operation={"add"} close={close}/>
             </div>
             <div className={'search_container'}>
                 <FormControl variant="outlined" fullWidth style={{ margin:"3%"}}>
@@ -74,22 +99,19 @@ const Products = (props) => {
                     }}
                 />
             </div>
-            <div className={'products_results'}>
-                <ul>
-                    {products?
-                        products.filter(product => {
-                            if(!search || search === "" && !category)
-                                return product;
-                            if(product.name.toLowerCase().includes(search.toLowerCase()))
-                                return product;
-                            if(product.productCode.toLowerCase().includes(search.toLowerCase()))
-                                return product;
-                            if(category.categoryCode.toLowerCase().includes(product.category.toLowerCase()))
-                                return product
-                            return product;
-                            })
-                                .map((product,i) => <Product key={i} product={product}/>) : null}
-                </ul>
+            <div className= {'products_results'}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Code</TableCell>
+                            <TableCell align="center">Product</TableCell>
+                            <TableCell align="center">Category</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {products? products.map((product, i) => <Product key={i} product={product}/>) : null}
+                    </TableBody>
+                </Table>
             </div>
         </div>
     )
